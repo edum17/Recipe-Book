@@ -16,4 +16,3 @@ Historias de usuaio:
 3). Como usuario quiero poder modificar una receta ya creada/existente en el sistema para poder corregir algunos aspectos (desglosar).
 4). Como usuario quiero poder eliminar una receta ya creada/existente en el sistema para poder actualizarlo (desglosar).
 5). Como usuario quiero poder listar una o varias recetas ya creadas/existentes en el sistema para poder ver su informacion (desglosar).
-
