@@ -1,5 +1,14 @@
 # README #
 
+Nombre:
+=======
+La idea principal es orientar la aplicación hacia todo público, no obstante, orientamos el público por preferéncia seran universitarios que viven solos
+o comparten piso con otros, y aquellas personas que no saben cocinar pero se estan inciando en el arte de la cocina tradicional.
+Los posibles nombre para la aplicación pueden ser:
+1). Las recetas de la abuela.
+2). Qué comemos hoy?
+3). Cooking today.
+
 Clases:
 =======
 - Receta
