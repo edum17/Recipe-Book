@@ -9,7 +9,8 @@
     tools:context="com.example.german.librorecetas.NuevaReceta"
     android:orientation="horizontal"
     android:weightSum="1"
-    android:background="@color/Azul">
+    android:background="@color/Azul"
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,7 +66,7 @@
 
     <EditText
         android:layout_width="256dp"
-        android:layout_height="283dp"
+        android:layout_height="149dp"
         android:inputType="textMultiLine"
         android:ems="10"
         android:textSize="15sp"
@@ -86,6 +87,26 @@
         android:layout_row="4"
         android:layout_column="0" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:id="@+id/iVFoto"
+        android:layout_row="5"
+        android:layout_column="1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bFoto"
+        android:id="@+id/bFoto"
+        android:layout_row="7"
+        android:layout_column="1"
+        android:clickable="true"
+        android:background="@color/Azul"
+        android:onClick="makePicture" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,7 +114,7 @@
         android:id="@+id/tVTipoComida"
         android:textColor="@color/Blanco"
         android:textSize="15sp"
-        android:layout_row="5"
+        android:layout_row="8"
         android:layout_column="0" />
 
     <EditText
@@ -102,7 +123,8 @@
         android:id="@+id/eTTipoComida"
         android:textColor="@color/Blanco"
         android:textSize="15sp"
-        android:layout_row="5"
+        android:layout_row="8"
         android:layout_column="1"
-        android:text="@string/eTTipoComida" />
+        android:text="@string/eTTipoComida"
+        android:inputType="none" />
 </GridLayout>
