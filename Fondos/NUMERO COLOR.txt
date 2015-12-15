@@ -1,0 +1,4 @@
+Naranja: #e97039
+Azul: #59a3ae
+Marron: #321a0e
+Celeste: #79d3d3

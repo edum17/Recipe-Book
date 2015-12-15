@@ -1,6 +1,23 @@
 <resources>
-    <string name="app_name">LibroRecetas</string>
+    <string name="app_name">Libro de Recetas</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    //Layaut pantalla principal
+    <string name="bNuevaR">Nueva receta</string>
+    <string name="bListarR">Lista de recetas</string>
+    <string name="bAbout">About</string>
+
+    //Layaout Nueva Receta
+    <string name="title_activity_nueva_receta">Nueva receta</string>
+    <string name="tVNombreNR">Nombre:</string>
+    <string name="eTNombre"/>
+    <string name="tVIngrediente">Ingrediente:</string>
+    <string name="eTIngrediente"/>
+    <string name="tVPreparacion">Preparacion:</string>
+    <string name="eTPreparacion"/>
+    <string name="tVFoto">Foto:</string>
+    <string name="tVTipoComida">Tipo de comida:</string>
+    <string name="eTTipoComida"/>
 </resources>

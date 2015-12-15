@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".nueva_receta"
+            android:label="@string/title_activity_nueva_receta" >
+        </activity>
+        <activity
+            android:name=".NuevaReceta"
+            android:label="@string/title_activity_nueva_receta" >
+        </activity>
     </application>
 
 </manifest>
