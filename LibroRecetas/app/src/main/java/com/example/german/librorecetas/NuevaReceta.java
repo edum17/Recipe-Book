@@ -36,8 +36,8 @@ public class NuevaReceta extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_receta);
-        findViewById(R.id.bFoto);
-        ImagenView = (ImageView) findViewById(R.id.iVFoto);
+        //findViewById(R.id.bFoto);
+        //ImagenView = (ImageView) findViewById(R.id.iVFoto);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class NuevaReceta extends ActionBarActivity {
 
     public void makePicture(View v) {
         btFoto = (Button) findViewById(R.id.bFoto);
-        ImagenView = (ImageView) findViewById(R.id.iVFoto);
+
         final CharSequence[] options = {"Hacer foto","Elegir de galeria","Cancelar"};
         final AlertDialog.Builder builder = new AlertDialog.Builder(NuevaReceta.this);
         builder.setTitle("Elige una opcion");
@@ -119,7 +119,7 @@ public class NuevaReceta extends ActionBarActivity {
     private void decodeBitMap(String dir) {
         Bitmap bitmap;
         bitmap = BitmapFactory.decodeFile(dir);
-
+        ImagenView = (ImageView) findViewById(R.id.iVFoto);
         ImagenView.setImageBitmap(bitmap);
     }
 

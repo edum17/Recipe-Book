@@ -5,4 +5,11 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/Marron</item>
     </style>
+
+    <style name="Separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+    </style>
+
 </resources>

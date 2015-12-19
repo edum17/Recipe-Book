@@ -19,14 +19,15 @@
             android:text="@string/bNuevaR"
             android:id="@+id/btNuevaR"
             android:clickable="true"
-            android:background="@color/Naranja"
+            android:background="@drawable/abc_btn_borderless_material"
             android:singleLine="true"
             android:textColor="@color/Blanco"
             android:textStyle="normal"
+            android:textSize="17sp"
             android:enabled="true"
             android:onClick="clickNuevaR"
             android:layout_marginBottom="138dp"
-            android:layout_marginStart="45dp"
+            android:layout_marginStart="10dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true" />
 
@@ -36,12 +37,13 @@
             android:text="@string/bListarR"
             android:id="@+id/btListaR"
             android:clickable="true"
-            android:background="@color/Naranja"
+            android:background="@drawable/abc_btn_borderless_material"
             android:singleLine="false"
+            android:textSize="17sp"
             android:textColor="@color/Blanco"
             android:enabled="true"
             android:onClick="clickListarR"
-            android:layout_marginEnd="45dp"
+            android:layout_marginEnd="10dp"
             android:layout_alignTop="@+id/btNuevaR"
             android:layout_alignParentEnd="true" />
 

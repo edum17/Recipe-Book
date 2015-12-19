@@ -20,5 +20,5 @@
     <string name="tVFoto">Foto:</string>
     <string name="tVTipoComida">Tipo de comida:</string>
     <string name="eTTipoComida"/>
-    <string name="bFoto">Hacer foto o cargarla</string>
+    <string name="bFoto">Cambiar foto</string>
 </resources>

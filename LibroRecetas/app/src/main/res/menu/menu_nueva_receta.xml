@@ -7,13 +7,16 @@
     <item android:id="@+id/action_add"
         android:title="Guardar"
         android:orderInCategory="100"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:textSize="17sp"/>
     <item android:id="@+id/action_cancel"
         android:title="Cancelar"
         android:orderInCategory="100"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:textSize="17sp"/>
     <item android:id="@+id/action_help"
         android:title="Ayuda"
         android:orderInCategory="100"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:textSize="17sp"/>
 </menu>
