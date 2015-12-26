@@ -1,6 +1,7 @@
 package com.example.german.librorecetas;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -20,6 +21,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Creacion y lanzamiento de la base de datos
+        DataBaseManager manager = new DataBaseManager(this);
+
         //Creacion de los botones
         //btNuevaR = (Button) findViewById(R.id.btNuevaR);
         //btListaR = (Button) findViewById(R.id.btListaR);

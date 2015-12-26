@@ -3,6 +3,7 @@ package com.example.german.librorecetas;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -22,20 +23,23 @@ import java.io.File;
 
 public class NuevaReceta extends ActionBarActivity {
 
-    private String APP_DIRECTORY = "myPictureApp";
+    private String APP_DIRECTORY = "Libro de Recetas";
     private String MEDIA_DIRECTORY = APP_DIRECTORY + "media";
     private String TEMPORAL_PICTURE_NAME = "temporal.jpg";
 
     private final int PHOTO_CODE = 100;
     private final int SELECT_PICTURE = 200;
 
-    private ImageView ImagenView;
+    ImageView ImagenView;
     Button btFoto;
+    //Creacion y lanzamiento de la base de datos
+    DataBaseManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_receta);
+        manager = new DataBaseManager(this);
         //findViewById(R.id.bFoto);
         //ImagenView = (ImageView) findViewById(R.id.iVFoto);
     }
@@ -56,6 +60,7 @@ public class NuevaReceta extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
+            guardaRecetaDb();
             Toast.makeText(getBaseContext(), "Receta guardada", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -133,5 +138,10 @@ public class NuevaReceta extends ActionBarActivity {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE); //Mediante este llamada se abirar la camara y captura la imagen
         intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(newFile)); //Para almacenar imagen o video
         startActivityForResult(intent,PHOTO_CODE);
+    }
+
+    public void guardaRecetaDb() {
+        Receta rValores = new Receta("PruebaValores","solo hago una pruba.","sdcard/image","pruebaValores");
+        manager.insertarR(rValores);
     }
 }

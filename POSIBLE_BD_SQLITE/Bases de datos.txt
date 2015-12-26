@@ -1,0 +1,64 @@
+CREATE DE LAS TABLAS DE LA BASE DE DATOS:
+=========================================
+CREATE TABLE Ingrediente(
+idI INTEGER,
+idR INTEGER,
+Nombre TEXT NOT NULL,
+Cantidad TEXT NOT NULL,
+PRIMARY KEY(idI,idR),
+FOREIGN KEY (idR) REFERENCES Receta(idR));
+
+
+CREATE TABLE Receta(
+idR INTEGER PRIMARY KEY,
+Nombre TEXT NOT NULL,
+Preparacion TEXT NOT NULL,
+Path TEXT,
+Tipo Text);
+
+
+CREATE TABLE Sustituto(
+idS INTEGER PRIMARY KEY,
+Nombre TEXT NOT NULL,
+idI INTEGER,
+FOREIGN KEY (idI) REFERENCES Ingrediente(idI))
+
+
+HECHA POR EL PROGRAMA:
+======================
+CREATE TABLE "Receta" ("idR" INTEGER PRIMARY KEY  NOT NULL , "Nombre" VARCHAR, "Preparacion" TEXT check(typeof("Preparacion") = 'text') , "Path" VARCHAR, "Tipo" VARCHAR)
+
+
+INSERTS INGREDIENTE:
+====================
+INSERT INTO Ingrediente VALUES(1,1,'Agua','1 Litro');
+INSERT INTO Ingrediente VALUES(2,1,'Espaguetis','500 g');
+INSERT INTO Ingrediente VALUES(3,1,'Tomate frito','500 g');
+INSERT INTO Ingrediente VALUES(4,1,'Arroz','1 kg');
+INSERT INTO Ingrediente VALUES(5,2,'Agua','1 Litro');
+
+
+BUSQUEDAD POR INGREDIENTE:
+==========================
+SELECT r.idR,r.Nombre
+FROM Receta r
+WHERE EXISTS( SELECT * FROM Ingrediente i WHERE i.idR == r.idR and i.Nombre = 'Agua');
+
+
+BUSQUEDAD POR TIPO DE COMIDA:
+=============================
+SELECT r.idR,r.Nombre
+FROM Receta r
+WHERE r.Tipo = 'Española'
+
+BUSQUEDAD POR NOMBRE DE RECETA:
+=============================
+SELECT *
+FROM Receta r
+WHERE r.Nombre = 'Espaguetis';
+
+BUSQUEDA DE ING. SUSTITUTOS:
+============================
+SELECT s.idS, s.Nombre
+FROM Sustituto s
+WHERE EXISTS (SELECT * FROM Ingrediente i WHERE i.idI == s.idI and i.Nombre == 'Aceite oliva');

@@ -132,8 +132,7 @@
                 android:scaleType="centerInside"
                 android:adjustViewBounds="true"
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/iVFoto"
-                android:background="@drawable/cubiertos"/>
+                android:id="@+id/iVFoto"/>
 
             <View style="@style/Separator"/>
 
