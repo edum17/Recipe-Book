@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
 
 public class MainActivity extends ActionBarActivity {
 
-    Button btNuevaR, btListaR;
+    private Button btNuevaR, btListaR;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +66,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void clickListarR(View v) {
-        Toast.makeText(getBaseContext(),"Has pulsado Lista de Recetas",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),"Has pulsado Lista de Recetas",Toast.LENGTH_SHORT).show();
+        //Vamos a la pantalla de listar recetas
+        btListaR = (Button) findViewById(R.id.btListaR);
+        Intent listar_recetas = new Intent(getApplicationContext(),ListarRecetas.class);
+        startActivity(listar_recetas);
     }
 }

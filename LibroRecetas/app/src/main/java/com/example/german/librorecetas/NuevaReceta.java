@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -30,18 +31,31 @@ public class NuevaReceta extends ActionBarActivity {
     private final int PHOTO_CODE = 100;
     private final int SELECT_PICTURE = 200;
 
-    ImageView ImagenView;
+    DbHelper dbhelper;
+    EditText nombre;
+    EditText ingredientes;
+    EditText preparacion;
+    ImageView imagen;
+    String path;
+    EditText tipo;
     Button btFoto;
+
     //Creacion y lanzamiento de la base de datos
-    DataBaseManager manager;
+    //DataBaseManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_receta);
-        manager = new DataBaseManager(this);
-        //findViewById(R.id.bFoto);
-        //ImagenView = (ImageView) findViewById(R.id.iVFoto);
+
+        nombre = (EditText) findViewById(R.id.eTNombre);
+        ingredientes = (EditText) findViewById(R.id.eTIngrediente);
+        preparacion = (EditText) findViewById(R.id.eTPreparacion);
+        imagen = (ImageView) findViewById(R.id.iVFoto);
+        tipo = (EditText) findViewById(R.id.eTTipoComida);
+
+        dbhelper = new DbHelper(this,null,null,1);
+
     }
 
     @Override
@@ -60,7 +74,7 @@ public class NuevaReceta extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
-            guardaRecetaDb();
+            addRecetaDb();
             Toast.makeText(getBaseContext(), "Receta guardada", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -109,13 +123,14 @@ public class NuevaReceta extends ActionBarActivity {
             case PHOTO_CODE:
                 if (resultCode == RESULT_OK) {
                     String dir = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY + File.separator + TEMPORAL_PICTURE_NAME;
+                    path = dir;
                     decodeBitMap(dir); //Decodifica la imagen para presentarsela al usuario
                 }
             break;
             case SELECT_PICTURE:
                 if (resultCode == RESULT_OK) {
                     Uri path = data.getData();
-                    ImagenView.setImageURI(path);
+                    imagen.setImageURI(path);
                 }
             break;
         }
@@ -124,8 +139,7 @@ public class NuevaReceta extends ActionBarActivity {
     private void decodeBitMap(String dir) {
         Bitmap bitmap;
         bitmap = BitmapFactory.decodeFile(dir);
-        ImagenView = (ImageView) findViewById(R.id.iVFoto);
-        ImagenView.setImageBitmap(bitmap);
+        imagen.setImageBitmap(bitmap);
     }
 
     private void openCamera() {
@@ -137,11 +151,20 @@ public class NuevaReceta extends ActionBarActivity {
 
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE); //Mediante este llamada se abirar la camara y captura la imagen
         intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(newFile)); //Para almacenar imagen o video
-        startActivityForResult(intent,PHOTO_CODE);
+        startActivityForResult(intent, PHOTO_CODE);
     }
 
-    public void guardaRecetaDb() {
-        Receta rValores = new Receta("PruebaValores","solo hago una pruba.","sdcard/image","pruebaValores");
-        manager.insertarR(rValores);
+    //String Nombre,String Ingredientes,String Preparacion, String Path, String Tipo
+    public void addRecetaDb() {
+        Receta r = new Receta(nombre.getText().toString(),ingredientes.getText().toString(),preparacion.getText().toString(),path,tipo.getText().toString());
+        dbhelper.addR(r);
+        finish(); //Termina con el activity de alta y vuelve al menu principal
+    }
+
+    private void dissmiss() {
+        nombre.setText("");
+        ingredientes.setText("");
+        preparacion.setText("");
+        tipo.setText("");
     }
 }

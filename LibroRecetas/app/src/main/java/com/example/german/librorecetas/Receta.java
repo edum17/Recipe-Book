@@ -12,14 +12,15 @@ import java.util.ArrayList;
 public class Receta {
     private static int idR = -1;
     private String nombre;
-    private ArrayList<Ingrediente> ingredientes;
+    private String ingredientes;
     private String preparacion;
     private String path;
     private String tipo;
 
 
-    Receta (String Nombre,String Preparacion, String Path, String Tipo) {
+    Receta (String Nombre,String Ingredientes,String Preparacion, String Path, String Tipo) {
         nombre = Nombre;
+        ingredientes = Ingredientes;
         preparacion = Preparacion;
         path = Path;
         tipo = Tipo;
@@ -38,11 +39,11 @@ public class Receta {
         this.nombre = nombre;
     }
 
-    public ArrayList<Ingrediente> getIngredientes() {
+    public String getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
+    public void setIngredientes(String ingredientes) {
         this.ingredientes = ingredientes;
     }
 
