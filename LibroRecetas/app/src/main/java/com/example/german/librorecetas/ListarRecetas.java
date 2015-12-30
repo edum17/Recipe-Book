@@ -12,10 +12,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 
 public class ListarRecetas extends ActionBarActivity {
 
+    SQLControlador dbconeccion;
     RadioButton receta;
     RadioButton ingrediente;
     RadioButton tipo;
@@ -27,6 +29,9 @@ public class ListarRecetas extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_recetas);
+
+        dbconeccion = new SQLControlador(this);
+        dbconeccion.abrirBaseDatos();
 
         receta = (RadioButton) findViewById(R.id.rBNombre);
         ingrediente = (RadioButton) findViewById(R.id.rBIngrediente);
@@ -42,13 +47,15 @@ public class ListarRecetas extends ActionBarActivity {
     }
 
     public void clickBuscarR(View v) {
-        DbHelper helper = new DbHelper(this,null,null,1);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = helper.listarRecetaPorNombre("A");
+        Cursor cursor = dbconeccion.leerDatos(texto.getText().toString());
+        String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
+        int[] to = new int[] {R.id._idR,R.id.nombreReceta};
 
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(ListarRecetas.this, R.layout.formato_fila, cursor, from, to);
 
-        CAdapter cadapter = new CAdapter(this,cursor);
-        lista.setAdapter(cadapter);
+        adapter.notifyDataSetChanged();
+        lista.setAdapter(adapter);
+        //dbconeccion.cerrar();
     }
 
     @Override

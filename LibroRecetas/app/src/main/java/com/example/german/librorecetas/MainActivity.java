@@ -22,9 +22,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Creacion y lanzamiento de la base de datos
-        DataBaseManager manager = new DataBaseManager(this);
-
         //Creacion de los botones
         //btNuevaR = (Button) findViewById(R.id.btNuevaR);
         //btListaR = (Button) findViewById(R.id.btListaR);

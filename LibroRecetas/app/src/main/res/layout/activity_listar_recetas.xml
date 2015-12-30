@@ -15,9 +15,9 @@
         android:layout_height="wrap_content"
         android:text="@string/tVBuscar"
         android:textColor="@color/Blanco"
+        android:textSize="17sp"
         android:id="@+id/textView" />
 
-    <View style="@style/Separator"/>
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:text="@string/rBNombre"
             android:textColor="@color/Blanco"
+            android:textSize="17sp"
             android:id="@+id/rBNombre" />
 
         <RadioButton
@@ -37,11 +38,13 @@
             android:layout_height="wrap_content"
             android:text="@string/rBIngrediente"
             android:textColor="@color/Blanco"
+            android:textSize="17sp"
             android:id="@+id/rBIngrediente" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="17sp"
             android:text="@string/rBTipo"
             android:textColor="@color/Blanco"
             android:id="@+id/rBTipo" />
@@ -53,13 +56,15 @@
             android:padding="5dp">
 
             <EditText
-                android:layout_width="295dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:id="@+id/eTBuscar"
                 android:textSize="17sp"
                 android:textColor="@color/Blanco"
+                android:ellipsize="start"
                 android:capitalize="sentences"
+                android:hint="Escribir nombre"
                 android:background="@drawable/rounded_edittext"
                 android:inputType="text"
                 android:text="@string/eTBuscar" />
@@ -69,7 +74,8 @@
                 android:layout_height="match_parent"
                 android:id="@+id/imageButton"
                 android:background="@drawable/abc_ic_search_api_mtrl_alpha"
-                android:clickable="true" />
+                android:clickable="true"
+                android:onClick="clickBuscarR" />
         </LinearLayout>
     </RadioGroup>
 
@@ -79,6 +85,8 @@
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:padding="5dp"
+        android:textSize="17sp"
+        android:textColor="@color/Blanco"
         android:id="@+id/listaRecetas" />
 
 </LinearLayout>

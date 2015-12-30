@@ -31,7 +31,6 @@ public class NuevaReceta extends ActionBarActivity {
     private final int PHOTO_CODE = 100;
     private final int SELECT_PICTURE = 200;
 
-    DbHelper dbhelper;
     EditText nombre;
     EditText ingredientes;
     EditText preparacion;
@@ -39,6 +38,8 @@ public class NuevaReceta extends ActionBarActivity {
     String path;
     EditText tipo;
     Button btFoto;
+
+    SQLControlador dbconeccion;
 
     //Creacion y lanzamiento de la base de datos
     //DataBaseManager manager;
@@ -54,8 +55,8 @@ public class NuevaReceta extends ActionBarActivity {
         imagen = (ImageView) findViewById(R.id.iVFoto);
         tipo = (EditText) findViewById(R.id.eTTipoComida);
 
-        dbhelper = new DbHelper(this,null,null,1);
-
+        dbconeccion = new SQLControlador(this);
+        dbconeccion.abrirBaseDatos();
     }
 
     @Override
@@ -156,8 +157,9 @@ public class NuevaReceta extends ActionBarActivity {
 
     //String Nombre,String Ingredientes,String Preparacion, String Path, String Tipo
     public void addRecetaDb() {
-        Receta r = new Receta(nombre.getText().toString(),ingredientes.getText().toString(),preparacion.getText().toString(),path,tipo.getText().toString());
-        dbhelper.addR(r);
+        Receta r = new Receta(nombre.getText().toString(), preparacion.getText().toString(), path, tipo.getText().toString());
+        dbconeccion.insertarDatos(r);
+        dbconeccion.cerrar();
         finish(); //Termina con el activity de alta y vuelve al menu principal
     }
 

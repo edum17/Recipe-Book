@@ -10,64 +10,52 @@ import java.util.ArrayList;
  * Created by German on 14/12/2015.
  */
 public class Receta {
-    private static int idR = -1;
-    private String nombre;
-    private String ingredientes;
-    private String preparacion;
-    private String path;
-    private String tipo;
+    private int _id = -1;
+    private String _nombre;
+    private String _preparacion;
+    private String _path;
+    private String _tipo;
 
 
-    Receta (String Nombre,String Ingredientes,String Preparacion, String Path, String Tipo) {
-        nombre = Nombre;
-        ingredientes = Ingredientes;
-        preparacion = Preparacion;
-        path = Path;
-        tipo = Tipo;
-        ++idR;
+    Receta (String Nombre,String Preparacion, String Path, String Tipo) {
+        this._nombre = Nombre;
+        this._preparacion = Preparacion;
+        this._path = Path;
+        this._tipo = Tipo;
+        ++_id;
     }
 
     public Integer getIdR() {
-        return idR;
+        return _id;
     }
 
     public String getNombre() {
-        return nombre;
+        return _nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getIngredientes() {
-        return ingredientes;
-    }
-
-    public void setIngredientes(String ingredientes) {
-        this.ingredientes = ingredientes;
+        this._nombre = nombre;
     }
 
     public String getPreparacion() {
-        return preparacion;
+        return _preparacion;
     }
 
     public void setPreparacion(String preparacion) {
-        this.preparacion = preparacion;
+        this._preparacion = preparacion;
     }
 
     public String getPath() {
-        return path;
+        return _path;
     }
 
     public void setPath(String path) {
-        this.path = path;
+        this._path = path;
     }
 
     public String getTipo() {
-        return tipo;
+        return _tipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+    public void setTipo(String tipo) { this._tipo = tipo;}
 }

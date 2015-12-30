@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -24,7 +25,7 @@ public class CAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView nombre = (TextView) view.findViewById(R.id.eTNombre);
+        EditText nombre = (EditText) view.findViewById(R.id.eTNombre);
         String nombreTxt = cursor.getString(cursor.getColumnIndexOrThrow("Nombre"));
         nombre.setText(nombreTxt);
     }

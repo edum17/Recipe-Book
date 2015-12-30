@@ -45,6 +45,7 @@
                 android:ellipsize="start"
                 android:textSize="17sp"
                 android:capitalize="sentences"
+                android:hint="Escribir nombre"
                 android:background="@drawable/appwidget_inner_focused_l"/>
 
             <View style="@style/Separator"/>
@@ -109,7 +110,9 @@
                 android:text="@string/eTPreparacion"
                 android:singleLine="false"
                 android:gravity="left|top"
+                android:ellipsize="start"
                 android:capitalize="sentences"
+                android:hint="Escribir descripcion"
                 android:textAlignment="gravity"/>
 
             <View style="@style/Separator"/>
@@ -127,8 +130,8 @@
             <View style="@style/Separator"/>
 
             <ImageView
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:scaleType="centerInside"
                 android:adjustViewBounds="true"
                 android:layout_gravity="center_horizontal"
@@ -174,6 +177,7 @@
                 android:inputType="none"
                 android:ellipsize="start"
                 android:capitalize="sentences"
+                android:hint="Escribir tipo"
                 android:background="@drawable/appwidget_inner_focused_l"/>
 
             <View style="@style/Separator"/>

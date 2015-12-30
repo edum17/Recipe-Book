@@ -15,23 +15,23 @@ import java.sql.Wrapper;
 public class DbHelper extends SQLiteOpenHelper{
 
     private static final String DB_Name = "cjtRecetas.sqlite";
-    private static final int DB_VERSION = 1; //Version actual de la DB
+    private static final int DB_Version = 1; //Version actual de la DB
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //Tabla Receta
     public static final String TABLA_RECETA = "Receta";
     public static final String CN_idR = "_id";
-    public static final String CN_NombreR = "Nombre";
-    public static final String CN_Preparacion = "Preparacion";
-    public static final String CN_Path = "Path";
-    public static final String CN_Tipo = "Tipo";
+    public static final String CN_NombreR = "_nombre";
+    public static final String CN_Preparacion = "_preparacion";
+    public static final String CN_Path = "_path";
+    public static final String CN_Tipo = "_tipo";
 
     //Tabla Ingrediente
     public static final String TABLA_INGREDIENTE = "Ingrediente";
     public static final String CN_idI = "_id";
     public static final String CN_idRI = "idR";
-    public static final String CN_NombreI = "Nombre";
-    public static final String CN_Cantidad = "Cantidad";
+    public static final String CN_NombreI = "_nombre";
+    public static final String CN_Cantidad = "_cantidad";
 
     //Tabla Sustituto
     public static final String TABLA_SUSTITUTO = "Sustituto";
@@ -65,57 +65,32 @@ public class DbHelper extends SQLiteOpenHelper{
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public DbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DB_Name, factory, DB_VERSION);
+    public DbHelper(Context context) {
+        super(context, DB_Name, null, DB_Version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DataBaseManager.CREA_TABLA_INGREDIENTE);
-        db.execSQL(DataBaseManager.CREA_TABLA_RECETA);
-        db.execSQL(DataBaseManager.CREA_TABLA_SUSTITUTO);
+        //db.execSQL(CREA_TABLA_INGREDIENTE);
+        db.execSQL(CREA_TABLA_RECETA);
+        //db.execSQL(CREA_TABLA_SUSTITUTO);
     }
 
     //Actualizamos la base de datos, incluida la SCHEME_VERSION
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DataBaseManager.TABLA_RECETA);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLA_RECETA);
         onCreate(db);
+        /*
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseManager.TABLA_INGREDIENTE);
         onCreate(db);
         db.execSQL("DROP TABLE IF EXISTS " + DataBaseManager.TABLA_SUSTITUTO);
         onCreate(db);
+        */
     }
 
-    //Receta: Inerta, eliminar y modificar
-    //====================================
 
-    private ContentValues valores(Receta r) {
-        ContentValues res = new ContentValues();
-        res.put(CN_NombreR,r.getNombre());
-        res.put(CN_Preparacion, r.getPreparacion());
-        res.put(CN_Path, r.getPath());
-        res.put(CN_Tipo, r.getTipo());
-        return res;
-    }
-
-    public void addR(Receta r) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.insert(TABLA_RECETA, null, valores(r));
-        db.close();
-    }
-
-    public void updateR(Receta r) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.update(TABLA_RECETA, valores(r), CN_idR + " = ?", new String[]{Integer.toString(r.getIdR())});
-        db.close();
-    }
-
-    public void deleteR(int identR) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLA_RECETA + " WHERE " + CN_idR + " = " + identR + ";");
-        db.close();
-    }
+    /*
 
     //Listar recetas por: ingrediente, nombre y tipo
     //==============================================
@@ -135,6 +110,8 @@ public class DbHelper extends SQLiteOpenHelper{
         if (!cursor.equals(null)) cursor.moveToFirst();
         return cursor;
     }
+
+    */
 }
 
 
