@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -14,12 +15,17 @@ import android.widget.TextView;
  */
 public class CAdapter extends CursorAdapter {
 
+    private LayoutInflater inflador;
+    TextView nombreReceta;
+    ImageView fotoReceta;
+
     public CAdapter(Context context, Cursor cursor) {
-        super(context,cursor,0);
+        super(context,cursor,false);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        inflador = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         return LayoutInflater.from(context).inflate(R.layout.activity_listar_recetas,parent,false);
     }
 

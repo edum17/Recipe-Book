@@ -17,9 +17,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 public class NuevaReceta extends ActionBarActivity {
@@ -32,7 +34,7 @@ public class NuevaReceta extends ActionBarActivity {
     private final int SELECT_PICTURE = 200;
 
     EditText nombre;
-    EditText ingredientes;
+    ListView ingredientes;
     EditText preparacion;
     ImageView imagen;
     String path;
@@ -50,7 +52,7 @@ public class NuevaReceta extends ActionBarActivity {
         setContentView(R.layout.activity_nueva_receta);
 
         nombre = (EditText) findViewById(R.id.eTNombre);
-        ingredientes = (EditText) findViewById(R.id.eTIngrediente);
+        ingredientes = (ListView) findViewById(R.id.listaIngredientes);
         preparacion = (EditText) findViewById(R.id.eTPreparacion);
         imagen = (ImageView) findViewById(R.id.iVFoto);
         tipo = (EditText) findViewById(R.id.eTTipoComida);
@@ -89,6 +91,34 @@ public class NuevaReceta extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void anadirIngredientes(View v) {
+        AlertDialog dialog;
+        final CharSequence[] items = {"Agua","Sal","Pimienta"};
+        final ArrayList selectedItems = new ArrayList();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Ingredientes");
+        builder.setMultiChoiceItems(items,null, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                if(isChecked) selectedItems.add(indexSelected);
+                else if (selectedItems.contains(indexSelected)) selectedItems.remove(indexSelected);
+            }
+        }).setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Si el usuario quiere guardar la lista seleccionada y asociarla a la receta determinada.
+            }
+        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Si el usuario no quiere guardar la lista de ingredientes seleccionados.
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
     }
 
     public void makePicture(View v) {
@@ -165,7 +195,7 @@ public class NuevaReceta extends ActionBarActivity {
 
     private void dissmiss() {
         nombre.setText("");
-        ingredientes.setText("");
+        //ingredientes.setText("");
         preparacion.setText("");
         tipo.setText("");
     }

@@ -20,8 +20,8 @@
     <string name="tVFoto">Foto:</string>
     <string name="tVTipoComida">Tipo de comida:</string>
     <string name="eTTipoComida"/>
-    <string name="bFoto">Cambiar imagen</string>
-
+    <string name="bFoto">Añadir imagen</string>
+    <string name="bIngredientes">Añadir ingredientes</string>
 
     //Layout Listar Receta
     <string name="title_activity_listar_recetas">Lista de Recetas</string>
@@ -30,5 +30,6 @@
     <string name="rBIngrediente">Nombre del ingrediente</string>
     <string name="rBTipo">Tipo de comida</string>
     <string name="eTBuscar"/>
+    <string name="bListarRecetas">Listar todas las recetas</string>
 
 </resources>

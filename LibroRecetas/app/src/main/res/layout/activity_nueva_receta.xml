@@ -63,25 +63,22 @@
 
             <View style="@style/Separator"/>
 
-            <Spinner
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinner"
-                android:background="@drawable/abc_spinner_mtrl_am_alpha"/>
+                android:text="@string/bIngredientes"
+                android:clickable="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/abc_btn_borderless_material"
+                android:id="@+id/button"
+                android:onClick="anadirIngredientes" />
 
             <View style="@style/Separator"/>
 
-            <EditText
+            <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:id="@+id/eTIngrediente"
-                android:textColor="@color/Blanco"
-                android:text="@string/eTIngrediente"
-                android:inputType="none"
-                android:textSize="17sp"
-                android:capitalize="sentences"
-                android:background="@drawable/appwidget_inner_focused_l"/>
+                android:id="@+id/listaIngredientes" />
 
             <View style="@style/Separator"/>
 

@@ -70,7 +70,7 @@
                 android:text="@string/eTBuscar" />
 
             <ImageButton
-                android:layout_width="37dp"
+                android:layout_width="34dp"
                 android:layout_height="match_parent"
                 android:id="@+id/imageButton"
                 android:background="@drawable/abc_ic_search_api_mtrl_alpha"
@@ -78,6 +78,18 @@
                 android:onClick="clickBuscarR" />
         </LinearLayout>
     </RadioGroup>
+
+    <View style="@style/Separator"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/abc_btn_borderless_material"
+        android:text="@string/bListarRecetas"
+        android:id="@+id/btListarRecetas"
+        android:onClick="clickListarRecetas"/>
 
     <View style="@style/Separator"/>
 

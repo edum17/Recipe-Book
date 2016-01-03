@@ -7,32 +7,27 @@ import android.app.Activity;
  */
 public class Ingrediente {
     private static int _id = -1;
-    private String _nombre = "";
-    private int _cantidad = 0;
+    private String _nombre;
 
-    Ingrediente(String Nombre, int Cantidad) {
+    Ingrediente(String Nombre, int iD) {
         _nombre = Nombre;
-        _cantidad = Cantidad;
-        ++_id;
+        _id = iD;
     }
 
     public int getId() {
         return _id;
+    }
+    
+    public void setID(int id){
+        if(id != -1) _id = id;
     }
 
     public String getNombre() {
         return _nombre;
     }
 
-    public int getCantidad() {
-        return _cantidad;
+    public void setNombre(String newNombre) {
+        if (!newNombre.equals(null)) _nombre = newNombre;
     }
 
-    public void setNombre(int id, String newNombre) {
-        if (id != -1) _nombre = newNombre;
-    }
-
-    public void setCantidad(int id, int newCantidad) {
-        if (id != -1) _cantidad = newCantidad;
-    }
 }

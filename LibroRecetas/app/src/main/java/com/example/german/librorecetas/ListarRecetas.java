@@ -47,7 +47,42 @@ public class ListarRecetas extends ActionBarActivity {
     }
 
     public void clickBuscarR(View v) {
-        Cursor cursor = dbconeccion.leerDatos(texto.getText().toString());
+        if (receta.isChecked()) {
+            Cursor cursor = dbconeccion.leerRecetaNombre(texto.getText().toString());
+            String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
+            int[] to = new int[] {R.id._idR,R.id.nombreReceta};
+
+            SimpleCursorAdapter adapter = new SimpleCursorAdapter(ListarRecetas.this, R.layout.formato_fila, cursor, from, to);
+
+            adapter.notifyDataSetChanged();
+            lista.setAdapter(adapter);
+        }
+        else if (ingrediente.isChecked()) {
+            Cursor cursor = dbconeccion.leerRecetaIngrediente(texto.getText().toString());
+            String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
+            int[] to = new int[] {R.id._idR,R.id.nombreReceta};
+
+            SimpleCursorAdapter adapter = new SimpleCursorAdapter(ListarRecetas.this, R.layout.formato_fila, cursor, from, to);
+
+            adapter.notifyDataSetChanged();
+            lista.setAdapter(adapter);
+        }
+        else if (tipo.isChecked()) {
+            Cursor cursor = dbconeccion.leerRecetaTipo(texto.getText().toString());
+            String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
+            int[] to = new int[] {R.id._idR,R.id.nombreReceta};
+
+            SimpleCursorAdapter adapter = new SimpleCursorAdapter(ListarRecetas.this, R.layout.formato_fila, cursor, from, to);
+
+            adapter.notifyDataSetChanged();
+            lista.setAdapter(adapter);
+        }
+
+        dbconeccion.cerrar();
+    }
+
+    public void clickListarRecetas(View v) {
+        Cursor cursor = dbconeccion.listarRecetas();
         String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
         int[] to = new int[] {R.id._idR,R.id.nombreReceta};
 
@@ -55,7 +90,8 @@ public class ListarRecetas extends ActionBarActivity {
 
         adapter.notifyDataSetChanged();
         lista.setAdapter(adapter);
-        //dbconeccion.cerrar();
+
+        dbconeccion.cerrar();
     }
 
     @Override
