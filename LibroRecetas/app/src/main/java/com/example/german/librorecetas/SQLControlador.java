@@ -5,6 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.zip.CheckedInputStream;
 
 /**
  * Created by German on 30/12/2015.
@@ -15,7 +19,7 @@ public class SQLControlador {
     private SQLiteDatabase database;
 
 
-    private ContentValues valores(Receta r) {
+    private ContentValues valoresReceta(Receta r) {
         ContentValues res = new ContentValues();
         res.put(DbHelper.CN_NombreR,r.getNombre());
         res.put(DbHelper.CN_Preparacion, r.getPreparacion());
@@ -41,7 +45,7 @@ public class SQLControlador {
     //Receta: Inerta, listar, eliminar y modificar
     //====================================
     public void insertarDatos(Receta r) {
-        database.insert(DbHelper.TABLA_RECETA, null, valores(r));
+        database.insert(DbHelper.TABLA_RECETA, null, valoresReceta(r));
     }
 
     public Cursor leerRecetaNombre(String nombreR) {
@@ -52,7 +56,8 @@ public class SQLControlador {
     }
 
     public Cursor leerRecetaIngrediente(String nombreI) {
-        String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + " FROM " + dbhelper.TABLA_RECETA + " WHERE EXISTS (SELECT * FROM " + dbhelper.TABLA_INGREDIENTE + " WHERE " + dbhelper.CN_idR + "=" + dbhelper.CN_idRI + " and " + dbhelper.CN_NombreI + "=" + nombreI;
+        //String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + " FROM " + dbhelper.TABLA_RECETA + " WHERE EXISTS (SELECT * FROM " + dbhelper.TABLA_INGREDIENTE + " WHERE " + dbhelper.CN_idR + "=" + dbhelper.CN_idRI + " and " + dbhelper.CN_NombreI + "='" + nombreI + "')";
+        String query = "SELECT r._id,r._nombre,r._path FROM Receta r WHERE EXISTS (SELECT * FROM Ingrediente i WHERE i._idR=r._id and i._nombre='" + nombreI + "')";
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
         return c;
@@ -72,13 +77,32 @@ public class SQLControlador {
         return c;
     }
 
-    //Ingrediente: Listar
-    //=======================
-
-    public Cursor leerIngredientes() {
-        String query = "SELECT " + dbhelper.CN_idI + "," + dbhelper.CN_NombreI + " FROM " + dbhelper.TABLA_INGREDIENTE;
+    public int _idReceta(String nombreR) {
+        String query = "SELECT " + dbhelper.CN_idR + " FROM " + dbhelper.TABLA_RECETA + " WHERE " + dbhelper.CN_NombreR + "='" + nombreR + "'";
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
-        return c;
+        ArrayList<String> array = new ArrayList<>();
+        while (c.isAfterLast() == false) {
+            array.add(c.getString(c.getColumnIndex("_id")));
+            c.moveToNext();
+        }
+        //System.out.println("Id de la receta: " + Integer.parseInt(array.get(0)));
+        return Integer.parseInt(array.get(0));
+    }
+
+    //Ingrediente: insertar
+    //=======================
+
+
+    private ContentValues valoresIngrediente(Ingrediente i) {
+        ContentValues res = new ContentValues();
+        res.put(DbHelper.CN_NombreI,i.getNombre());
+        res.put(DbHelper.CN_idRI,i.getIdR());
+        return res;
+    }
+
+
+    public void insertarIngredientes(Ingrediente i) {
+        database.insert(DbHelper.TABLA_INGREDIENTE, null, valoresIngrediente(i));
     }
 }

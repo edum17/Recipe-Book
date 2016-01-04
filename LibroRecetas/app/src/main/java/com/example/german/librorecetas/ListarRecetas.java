@@ -1,5 +1,6 @@
 package com.example.german.librorecetas;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -78,7 +80,7 @@ public class ListarRecetas extends ActionBarActivity {
             lista.setAdapter(adapter);
         }
 
-        dbconeccion.cerrar();
+        //dbconeccion.cerrar();
     }
 
     public void clickListarRecetas(View v) {
@@ -90,8 +92,15 @@ public class ListarRecetas extends ActionBarActivity {
 
         adapter.notifyDataSetChanged();
         lista.setAdapter(adapter);
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent consultar_receta = new Intent(getApplicationContext(),ConsultarReceta.class);
+                startActivity(consultar_receta);
+            }
+        });
 
-        dbconeccion.cerrar();
+        //dbconeccion.cerrar();
     }
 
     @Override

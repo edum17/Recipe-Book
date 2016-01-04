@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.german.librorecetas.NuevaReceta"
+    tools:context="com.example.german.librorecetas.ConsultarReceta"
     android:orientation="vertical"
     android:weightSum="1"
     android:background="@color/Azul">
@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/tVNombreNR"
+                android:text="@string/tVNombreR"
                 android:shape="rectangle"
                 android:textColor="@color/Blanco"
                 android:background="@drawable/rounded_edittext"
@@ -41,11 +41,10 @@
                 android:id="@+id/eTNombre"
                 android:inputType="none"
                 android:textColor="@color/Blanco"
-                android:text="@string/eTNombre"
+                android:text="@string/eTNombreR"
                 android:ellipsize="start"
                 android:textSize="17sp"
                 android:capitalize="sentences"
-                android:hint="Escribir nombre"
                 android:background="@drawable/appwidget_inner_focused_l"/>
 
             <View style="@style/Separator"/>
@@ -54,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/tVIngrediente"
+                android:text="@string/tVIngredienteR"
                 android:id="@+id/tVIngrediente"
                 android:textColor="@color/Blanco"
                 android:background="@drawable/rounded_edittext"
@@ -63,18 +62,12 @@
 
             <View style="@style/Separator"/>
 
-            <Spinner
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spIngredientes"
-                android:textSize="17sp"/>
-
             <View style="@style/Separator"/>
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:id="@+id/listaIngredientes"
+                android:layout_height="wrap_content"
+                android:id="@+id/listaIngredientesR"
                 android:textSize="17sp"
                 android:padding="5dp"/>
 
@@ -84,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/tVPreparacion"
+                android:text="@string/tVPreparacionR"
                 android:id="@+id/tVPreparacion"
                 android:textSize="17sp"
                 android:textColor="@color/Blanco"
@@ -102,12 +95,11 @@
                 android:textSize="17sp"
                 android:id="@+id/eTPreparacion"
                 android:textColor="@color/Blanco"
-                android:text="@string/eTPreparacion"
+                android:text="@string/eTPreparacionR"
                 android:singleLine="false"
                 android:gravity="left|top"
                 android:ellipsize="start"
                 android:capitalize="sentences"
-                android:hint="Escribir descripcion"
                 android:textAlignment="gravity"/>
 
             <View style="@style/Separator"/>
@@ -116,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/tVFoto"
+                android:text="@string/tVFotoR"
                 android:id="@+id/tVFoto"
                 android:textColor="@color/Blanco"
                 android:background="@drawable/rounded_edittext"
@@ -130,7 +122,7 @@
                 android:scaleType="centerInside"
                 android:adjustViewBounds="true"
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/iVFoto"/>
+                android:id="@+id/iVFotoR"/>
 
             <View style="@style/Separator"/>
 
@@ -138,8 +130,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/bFoto"
-                android:id="@+id/bFoto"
+                android:text="@string/bFotoR"
+                android:id="@+id/bFotoR"
                 android:clickable="true"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/abc_btn_borderless_material"
@@ -152,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/tVTipoComida"
+                android:text="@string/tVTipoComidaR"
                 android:id="@+id/tVTipoComida"
                 android:textColor="@color/Blanco"
                 android:background="@drawable/rounded_edittext"
@@ -168,11 +160,10 @@
                 android:id="@+id/eTTipoComida"
                 android:textColor="@color/Blanco"
                 android:textSize="17sp"
-                android:text="@string/eTTipoComida"
+                android:text="@string/eTTipoComidaR"
                 android:inputType="none"
                 android:ellipsize="start"
                 android:capitalize="sentences"
-                android:hint="Escribir tipo"
                 android:background="@drawable/appwidget_inner_focused_l"/>
 
             <View style="@style/Separator"/>

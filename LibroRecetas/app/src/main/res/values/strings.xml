@@ -13,23 +13,33 @@
     <string name="title_activity_nueva_receta">Nueva receta</string>
     <string name="tVNombreNR">Nombre:</string>
     <string name="eTNombre"/>
-    <string name="tVIngrediente">Ingrediente:</string>
-    <string name="eTIngrediente"/>
+    <string name="tVIngrediente">Ingredientes:</string>
     <string name="tVPreparacion">Preparacion:</string>
     <string name="eTPreparacion"/>
     <string name="tVFoto">Foto:</string>
     <string name="tVTipoComida">Tipo de comida:</string>
     <string name="eTTipoComida"/>
     <string name="bFoto">Añadir imagen</string>
-    <string name="bIngredientes">Añadir ingredientes</string>
 
     //Layout Listar Receta
-    <string name="title_activity_listar_recetas">Lista de Recetas</string>
+    <string name="title_activity_listar_recetas">Lista de recetas</string>
     <string name="tVBuscar">Seleccionar una opcion a buscar:</string>
     <string name="rBNombre">Nombre de la receta</string>
     <string name="rBIngrediente">Nombre del ingrediente</string>
     <string name="rBTipo">Tipo de comida</string>
     <string name="eTBuscar"/>
     <string name="bListarRecetas">Listar todas las recetas</string>
+
+    //Layout Consultar Receta
+    <string name="title_activity_consultar_receta">Consultar receta</string>
+    <string name="tVNombreR">Nombre:</string>
+    <string name="eTNombreR"/>
+    <string name="tVIngredienteR">Ingredientes:</string>
+    <string name="tVPreparacionR">Preparacion:</string>
+    <string name="eTPreparacionR"/>
+    <string name="tVFotoR">Foto:</string>
+    <string name="tVTipoComidaR">Tipo de comida:</string>
+    <string name="eTTipoComidaR"/>
+    <string name="bFotoR">Cambiar imagen</string>
 
 </resources>

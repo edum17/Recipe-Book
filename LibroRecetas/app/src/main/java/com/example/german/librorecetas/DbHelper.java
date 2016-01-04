@@ -31,7 +31,6 @@ public class DbHelper extends SQLiteOpenHelper{
     public static final String CN_idI = "_id";
     public static final String CN_idRI = "_idR";
     public static final String CN_NombreI = "_nombre";
-    public static final String CN_Cantidad = "_cantidad";
 
     //Tabla Sustituto
     public static final String TABLA_SUSTITUTO = "Sustituto";
@@ -50,9 +49,8 @@ public class DbHelper extends SQLiteOpenHelper{
     //Creacion de la tabla Ingrediente
     public static final String CREA_TABLA_INGREDIENTE = "CREATE TABLE " + TABLA_INGREDIENTE + "(" +
             CN_idI + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            CN_idRI + " INTEGER," +
+            CN_idRI + " INTEGER NOT NULL," +
             CN_NombreI + " TEXT NOT NULL, " +
-            CN_Cantidad + " TEXT NOT NULL, " +
             "FOREIGN KEY (" + CN_idRI + ") REFERENCES " + TABLA_RECETA + " (" + CN_idR + "));";
 
     //Creacion de latabla Sustituto

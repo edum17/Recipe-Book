@@ -7,19 +7,25 @@ import android.app.Activity;
  */
 public class Ingrediente {
     private static int _id = -1;
+    private static int _idR = -1;
     private String _nombre;
 
-    Ingrediente(String Nombre, int iD) {
+    Ingrediente(String Nombre, int iDR) {
         _nombre = Nombre;
-        _id = iD;
+        _idR = iDR;
+        ++_id;
     }
 
     public int getId() {
         return _id;
     }
-    
-    public void setID(int id){
-        if(id != -1) _id = id;
+
+    public int getIdR(){
+        return _idR;
+    }
+
+    public void setIdR(int iDR) {
+        _idR = iDR;
     }
 
     public String getNombre() {

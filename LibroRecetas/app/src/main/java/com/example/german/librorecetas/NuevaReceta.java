@@ -14,17 +14,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 
 
-public class NuevaReceta extends ActionBarActivity {
+public class NuevaReceta extends ActionBarActivity{
 
     private String APP_DIRECTORY = "Libro de Recetas";
     private String MEDIA_DIRECTORY = APP_DIRECTORY + "media";
@@ -33,13 +36,17 @@ public class NuevaReceta extends ActionBarActivity {
     private final int PHOTO_CODE = 100;
     private final int SELECT_PICTURE = 200;
 
+    private String posIng;
+    private ArrayList<String> ingSeleccionados;
+
     EditText nombre;
-    ListView ingredientes;
+    ListView listaIng;
     EditText preparacion;
     ImageView imagen;
     String path;
     EditText tipo;
     Button btFoto;
+    Spinner spinIng;
 
     SQLControlador dbconeccion;
 
@@ -52,13 +59,83 @@ public class NuevaReceta extends ActionBarActivity {
         setContentView(R.layout.activity_nueva_receta);
 
         nombre = (EditText) findViewById(R.id.eTNombre);
-        ingredientes = (ListView) findViewById(R.id.listaIngredientes);
+        listaIng = (ListView) findViewById(R.id.listaIngredientes);
         preparacion = (EditText) findViewById(R.id.eTPreparacion);
+        btFoto = (Button) findViewById(R.id.bFoto);
         imagen = (ImageView) findViewById(R.id.iVFoto);
         tipo = (EditText) findViewById(R.id.eTTipoComida);
+        spinIng = (Spinner) findViewById(R.id.spIngredientes);
+        ingSeleccionados = new ArrayList<>();
+        anadirIngredientesLista();
 
         dbconeccion = new SQLControlador(this);
         dbconeccion.abrirBaseDatos();
+    }
+
+    private void listarIngredientesSeleccionados(final ArrayList<String> seleccionados) {
+        //Adaptador ListView
+        final ArrayAdapter<String> adapterLista;
+        adapterLista = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,seleccionados);
+        listaIng.setAdapter(adapterLista);
+        listaIng.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Calculamos la posicion del inrediente que se quiere eliminar
+                posIng = parent.getItemAtPosition(position).toString();
+                AlertDialog.Builder Adialog = new AlertDialog.Builder(NuevaReceta.this);
+                Adialog.setTitle("Eliminar ingrediente");
+                Adialog.setMessage("Desea eliminar el ingrediente seleccionado");
+                Adialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapterLista.remove(posIng);
+                        adapterLista.notifyDataSetChanged();
+                    }
+                });
+                Adialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog Alertdialog = Adialog.create();
+                Alertdialog.show();
+            }
+        });
+    }
+
+    private void anadirIngredientesLista() {
+        //Adaptador Spinner
+        ArrayAdapter<CharSequence> adapter;
+        adapter = ArrayAdapter.createFromResource(this,R.array.ingredientes,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinIng.setAdapter(adapter);
+        spinIng.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Elemento seleccionado del spinner, que se anadira a la lista de ingredientes de la receta
+                String seleccionado = parent.getItemAtPosition(position).toString();
+                int i = 0;
+                boolean trobat = false;
+                while (i < ingSeleccionados.size() && !trobat) {
+                    if (ingSeleccionados.get(i).equals(seleccionado)) trobat = true;
+                    else ++i;
+                }
+                if (!trobat) ingSeleccionados.add(seleccionado);
+                if (ingSeleccionados.size() > 1) {
+                    for (int j = 0; j < ingSeleccionados.size(); ++j)
+                        if (ingSeleccionados.get(j).equals("Seleccionar ingredientes"))
+                            ingSeleccionados.remove(j);
+                }
+                if (ingSeleccionados.size() < 1) ingSeleccionados.add("Seleccionar ingredientes");
+                listarIngredientesSeleccionados(ingSeleccionados);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -82,6 +159,7 @@ public class NuevaReceta extends ActionBarActivity {
             return true;
         }
         else if (id == R.id.action_cancel) {
+            dissmiss();
             Toast.makeText(getBaseContext(),"No se ha guardado la receta",Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -94,36 +172,10 @@ public class NuevaReceta extends ActionBarActivity {
     }
 
     public void anadirIngredientes(View v) {
-        AlertDialog dialog;
-        final CharSequence[] items = {"Agua","Sal","Pimienta"};
-        final ArrayList selectedItems = new ArrayList();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Ingredientes");
-        builder.setMultiChoiceItems(items,null, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
-                if(isChecked) selectedItems.add(indexSelected);
-                else if (selectedItems.contains(indexSelected)) selectedItems.remove(indexSelected);
-            }
-        }).setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Si el usuario quiere guardar la lista seleccionada y asociarla a la receta determinada.
-            }
-        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Si el usuario no quiere guardar la lista de ingredientes seleccionados.
-            }
-        });
-        dialog = builder.create();
-        dialog.show();
     }
 
     public void makePicture(View v) {
-        btFoto = (Button) findViewById(R.id.bFoto);
-
         final CharSequence[] options = {"Hacer foto","Elegir de galeria","Cancelar"};
         final AlertDialog.Builder builder = new AlertDialog.Builder(NuevaReceta.this);
         builder.setTitle("Elige una opcion");
@@ -189,13 +241,20 @@ public class NuevaReceta extends ActionBarActivity {
     public void addRecetaDb() {
         Receta r = new Receta(nombre.getText().toString(), preparacion.getText().toString(), path, tipo.getText().toString());
         dbconeccion.insertarDatos(r);
+        //Insertamos los ingredientes en la base de datos
+        for (int i = 0; i < ingSeleccionados.size(); ++i) {
+            Ingrediente ing = new Ingrediente(ingSeleccionados.get(i),dbconeccion._idReceta(nombre.getText().toString()));
+            dbconeccion.insertarIngredientes(ing);
+        }
+
         dbconeccion.cerrar();
         finish(); //Termina con el activity de alta y vuelve al menu principal
     }
 
     private void dissmiss() {
         nombre.setText("");
-        //ingredientes.setText("");
+        listaIng.clearAnimation();
+        spinIng.clearAnimation();
         preparacion.setText("");
         tipo.setText("");
     }

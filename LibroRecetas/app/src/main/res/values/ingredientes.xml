@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ingredientes">
+        <item>Seleccionar ingredientes</item>
+        <item>Aceite</item>
+        <item>Sal</item>
+        <item>Pimienta</item>
+        <item>Bacon</item>
+        <item>Queso gorgonzola</item>
+        <item>Patatas</item>
+        <item>Queso mozzarella</item>
+        <item>Espaguetis</item>
+        <item>Nata</item>
+    </string-array>
+
+</resources>
