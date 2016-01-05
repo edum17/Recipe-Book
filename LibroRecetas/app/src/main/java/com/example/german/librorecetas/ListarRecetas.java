@@ -20,7 +20,7 @@ import android.widget.TextView;
 public class ListarRecetas extends ActionBarActivity {
 
     SQLControlador dbconeccion;
-    RadioButton receta;
+    RadioButton noIngrediente;
     RadioButton ingrediente;
     RadioButton tipo;
     EditText texto;
@@ -35,7 +35,7 @@ public class ListarRecetas extends ActionBarActivity {
         dbconeccion = new SQLControlador(this);
         dbconeccion.abrirBaseDatos();
 
-        receta = (RadioButton) findViewById(R.id.rBNombre);
+        noIngrediente = (RadioButton) findViewById(R.id.rBNoIngrediente);
         ingrediente = (RadioButton) findViewById(R.id.rBIngrediente);
         tipo = (RadioButton) findViewById(R.id.rBTipo);
         texto = (EditText) findViewById(R.id.eTBuscar);
@@ -44,13 +44,11 @@ public class ListarRecetas extends ActionBarActivity {
         lista = (ListView) findViewById(R.id.listaRecetas);
         lista.setTextFilterEnabled(true);
 
-        //Muestra los dos campos deseados, el path de la imagen(imagen) y nombre de la receta
-
     }
 
     public void clickBuscarR(View v) {
-        if (receta.isChecked()) {
-            Cursor cursor = dbconeccion.leerRecetaNombre(texto.getText().toString());
+        if (tipo.isChecked()) {
+            Cursor cursor = dbconeccion.leerRecetaTipo(texto.getText().toString());
             String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
             int[] to = new int[] {R.id._idR,R.id.nombreReceta};
 
@@ -59,6 +57,7 @@ public class ListarRecetas extends ActionBarActivity {
             adapter.notifyDataSetChanged();
             lista.setAdapter(adapter);
         }
+
         else if (ingrediente.isChecked()) {
             Cursor cursor = dbconeccion.leerRecetaIngrediente(texto.getText().toString());
             String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
@@ -69,8 +68,8 @@ public class ListarRecetas extends ActionBarActivity {
             adapter.notifyDataSetChanged();
             lista.setAdapter(adapter);
         }
-        else if (tipo.isChecked()) {
-            Cursor cursor = dbconeccion.leerRecetaTipo(texto.getText().toString());
+        else if (noIngrediente.isChecked()) {
+            Cursor cursor = dbconeccion.leerRecetasNoIngrediente(texto.getText().toString());
             String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
             int[] to = new int[] {R.id._idR,R.id.nombreReceta};
 

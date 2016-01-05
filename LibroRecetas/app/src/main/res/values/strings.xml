@@ -27,6 +27,7 @@
     <string name="rBNombre">Nombre de la receta</string>
     <string name="rBIngrediente">Nombre del ingrediente</string>
     <string name="rBTipo">Tipo de comida</string>
+    <string name="rBNoIngrediente">Recetas que no contienen un ingrediente</string>
     <string name="eTBuscar"/>
     <string name="bListarRecetas">Listar todas las recetas</string>
 

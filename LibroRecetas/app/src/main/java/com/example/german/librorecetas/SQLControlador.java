@@ -78,6 +78,13 @@ public class SQLControlador {
         return c;
     }
 
+    public Cursor leerRecetasNoIngrediente(String nombreI) {
+        String query = "SELECT r._id,r._nombre,r._path FROM Receta r WHERE NOT EXISTS (SELECT * FROM Ingrediente i WHERE i._idR=r._id and i._nombre='" + nombreI + "')";
+        Cursor c = database.rawQuery(query,null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
     public Cursor leerRecetaTipo(String nombreT) {
         String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + " FROM " + dbhelper.TABLA_RECETA + " WHERE '" + nombreT + "' = " + dbhelper.CN_Tipo;
         Cursor c = database.rawQuery(query,null);
@@ -112,8 +119,6 @@ public class SQLControlador {
 
     //Ingrediente: insertar
     //=======================
-
-
     private ContentValues valoresIngrediente(Ingrediente i) {
         ContentValues res = new ContentValues();
         res.put(DbHelper.CN_NombreI,i.getNombre());

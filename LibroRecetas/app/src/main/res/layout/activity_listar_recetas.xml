@@ -28,10 +28,10 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rBNombre"
-            android:textColor="@color/Blanco"
             android:textSize="17sp"
-            android:id="@+id/rBNombre" />
+            android:text="@string/rBTipo"
+            android:textColor="@color/Blanco"
+            android:id="@+id/rBTipo" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -44,10 +44,12 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:text="@string/rBTipo"
+            android:text="@string/rBNoIngrediente"
+            android:id="@+id/rBNoIngrediente"
             android:textColor="@color/Blanco"
-            android:id="@+id/rBTipo" />
+            android:textSize="17sp"
+            android:layout_gravity="center_horizontal"
+            android:checked="false" />
 
         <LinearLayout
             android:orientation="horizontal"

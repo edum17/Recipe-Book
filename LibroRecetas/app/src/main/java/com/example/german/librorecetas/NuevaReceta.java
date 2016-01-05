@@ -3,6 +3,7 @@ package com.example.german.librorecetas;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,7 +24,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -201,7 +205,6 @@ public class NuevaReceta extends ActionBarActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-
         switch (requestCode) {
             case PHOTO_CODE:
                 if (resultCode == RESULT_OK) {
@@ -212,8 +215,22 @@ public class NuevaReceta extends ActionBarActivity{
             case SELECT_PICTURE:
                 if (resultCode == RESULT_OK) {
                     Uri path = data.getData();
-                    Path = path.getPath();
-                    imagen.setImageURI(path);
+                    InputStream is;
+                    try {
+                        is = getContentResolver().openInputStream(path);
+                        BufferedInputStream bis = new BufferedInputStream(is);
+                        Bitmap bitmap = BitmapFactory.decodeStream(bis);
+                        imagen.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    Cursor c = getContentResolver().query(path,null,null,null,null);
+                    c.moveToFirst();
+                    int index = c.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    Path = c.getString(index);
+                    //System.out.println("*************************** Path: " + Path);
+                    //Path = path.getPath();
+                    //imagen.setImageURI(path);
                 }
             break;
         }

@@ -3,10 +3,12 @@ package com.example.german.librorecetas;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,7 +21,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -40,8 +45,10 @@ public class ConsultarReceta extends ActionBarActivity {
     EditText preparacion;
     ImageView imagen;
     EditText tipo;
-    String path;
+    String Path;
     Button btFoto;
+    ArrayList<String> receta;
+    ArrayList<String> ingredientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +66,13 @@ public class ConsultarReceta extends ActionBarActivity {
         btFoto = (Button) findViewById(R.id.bFotoR);
         tipo = (EditText) findViewById(R.id.eTTipoComidaR);
 
-        ArrayList<String> receta = dbconeccion.leerReceta(Integer.parseInt(idR));
-        ArrayList<String> ingredientes = dbconeccion.leerIngredientesReceta(Integer.parseInt(idR));
+        receta = dbconeccion.leerReceta(Integer.parseInt(idR));
+        ingredientes = dbconeccion.leerIngredientesReceta(Integer.parseInt(idR));
 
         nombre.setText(receta.get(0));
         preparacion.setText(receta.get(1));
-        path = receta.get(2);
-        decodeBitMap(path);
+        Path = receta.get(2);
+        decodeBitMap(Path);
         tipo.setText(receta.get(3));
 
         final ArrayAdapter<String> adapterLista;
@@ -89,7 +96,9 @@ public class ConsultarReceta extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
+            guardarCambiosEfectuados();
             Toast.makeText(getBaseContext(), "Cambios guardados", Toast.LENGTH_SHORT).show();
+            finish();
             return true;
         }
         else if (id == R.id.action_delete) {
@@ -100,6 +109,8 @@ public class ConsultarReceta extends ActionBarActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dbconeccion.eliminarReceta(Integer.parseInt(idR));
+                    Toast.makeText(getBaseContext(), "Receta eliminada", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             });
             Adialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -110,7 +121,6 @@ public class ConsultarReceta extends ActionBarActivity {
             });
             AlertDialog Alertdialog = Adialog.create();
             Alertdialog.show();
-            Toast.makeText(getBaseContext(),"Receta eliminada",Toast.LENGTH_SHORT).show();
             return true;
         }
         else if (id == R.id.action_help) {
@@ -118,6 +128,16 @@ public class ConsultarReceta extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void guardarCambiosEfectuados() {
+        dbconeccion.eliminarReceta(Integer.parseInt(idR));
+        Receta r = new Receta(nombre.getText().toString(), preparacion.getText().toString(), Path, tipo.getText().toString());
+        dbconeccion.insertarDatos(r);
+        for (int i = 0; i < ingredientes.size(); ++i) {
+            Ingrediente ing = new Ingrediente(ingredientes.get(i),dbconeccion._idReceta(nombre.getText().toString()));
+            dbconeccion.insertarIngredientes(ing);
+        }
     }
 
     public void makePicture(View v) {
@@ -146,19 +166,32 @@ public class ConsultarReceta extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-
         switch (requestCode) {
             case PHOTO_CODE:
                 if (resultCode == RESULT_OK) {
                     String dir = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY + File.separator + TEMPORAL_PICTURE_NAME;
-                    path = dir;
                     decodeBitMap(dir); //Decodifica la imagen para presentarsela al usuario
                 }
                 break;
             case SELECT_PICTURE:
                 if (resultCode == RESULT_OK) {
                     Uri path = data.getData();
-                    imagen.setImageURI(path);
+                    InputStream is;
+                    try {
+                        is = getContentResolver().openInputStream(path);
+                        BufferedInputStream bis = new BufferedInputStream(is);
+                        Bitmap bitmap = BitmapFactory.decodeStream(bis);
+                        imagen.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    Cursor c = getContentResolver().query(path,null,null,null,null);
+                    c.moveToFirst();
+                    int index = c.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    Path = c.getString(index);
+                    //System.out.println("*************************** Path: " + Path);
+                    //Path = path.getPath();
+                    //imagen.setImageURI(path);
                 }
                 break;
         }
@@ -166,6 +199,7 @@ public class ConsultarReceta extends ActionBarActivity {
 
     private void decodeBitMap(String dir) {
         Bitmap bitmap;
+        Path = dir;
         bitmap = BitmapFactory.decodeFile(dir);
         imagen.setImageBitmap(bitmap);
     }
@@ -174,7 +208,6 @@ public class ConsultarReceta extends ActionBarActivity {
         File file = new File(Environment.getExternalStorageDirectory(), MEDIA_DIRECTORY);
         file.mkdirs();
         String path = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY + File.separator + TEMPORAL_PICTURE_NAME;
-
         File newFile = new File(path);
 
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE); //Mediante este llamada se abirar la camara y captura la imagen
