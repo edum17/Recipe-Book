@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -87,7 +88,32 @@ public class ConsultarReceta extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_save) {
+            Toast.makeText(getBaseContext(), "Cambios guardados", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if (id == R.id.action_delete) {
+            AlertDialog.Builder Adialog = new AlertDialog.Builder(ConsultarReceta.this);
+            Adialog.setTitle("Eliminar receta");
+            Adialog.setMessage("Desea eliminar la receta");
+            Adialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dbconeccion.eliminarReceta(Integer.parseInt(idR));
+                }
+            });
+            Adialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog Alertdialog = Adialog.create();
+            Alertdialog.show();
+            Toast.makeText(getBaseContext(),"Receta eliminada",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if (id == R.id.action_help) {
             return true;
         }
 

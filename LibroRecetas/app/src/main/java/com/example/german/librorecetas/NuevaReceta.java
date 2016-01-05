@@ -43,7 +43,7 @@ public class NuevaReceta extends ActionBarActivity{
     ListView listaIng;
     EditText preparacion;
     ImageView imagen;
-    String path;
+    String Path;
     EditText tipo;
     Button btFoto;
     Spinner spinIng;
@@ -206,13 +206,13 @@ public class NuevaReceta extends ActionBarActivity{
             case PHOTO_CODE:
                 if (resultCode == RESULT_OK) {
                     String dir = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY + File.separator + TEMPORAL_PICTURE_NAME;
-                    path = dir;
                     decodeBitMap(dir); //Decodifica la imagen para presentarsela al usuario
                 }
             break;
             case SELECT_PICTURE:
                 if (resultCode == RESULT_OK) {
                     Uri path = data.getData();
+                    Path = path.getPath();
                     imagen.setImageURI(path);
                 }
             break;
@@ -221,6 +221,7 @@ public class NuevaReceta extends ActionBarActivity{
 
     private void decodeBitMap(String dir) {
         Bitmap bitmap;
+        Path = dir;
         bitmap = BitmapFactory.decodeFile(dir);
         imagen.setImageBitmap(bitmap);
     }
@@ -229,7 +230,6 @@ public class NuevaReceta extends ActionBarActivity{
         File file = new File(Environment.getExternalStorageDirectory(), MEDIA_DIRECTORY);
         file.mkdirs();
         String path = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY + File.separator + TEMPORAL_PICTURE_NAME;
-
         File newFile = new File(path);
 
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE); //Mediante este llamada se abirar la camara y captura la imagen
@@ -239,7 +239,7 @@ public class NuevaReceta extends ActionBarActivity{
 
     //String Nombre,String Ingredientes,String Preparacion, String Path, String Tipo
     public void addRecetaDb() {
-        Receta r = new Receta(nombre.getText().toString(), preparacion.getText().toString(), path, tipo.getText().toString());
+        Receta r = new Receta(nombre.getText().toString(), preparacion.getText().toString(), Path, tipo.getText().toString());
         dbconeccion.insertarDatos(r);
         //Insertamos los ingredientes en la base de datos
         for (int i = 0; i < ingSeleccionados.size(); ++i) {

@@ -104,6 +104,12 @@ public class SQLControlador {
         return Integer.parseInt(array.get(0));
     }
 
+    public void eliminarReceta(int idR) {
+        String query = "DELETE FROM " + dbhelper.TABLA_RECETA + " WHERE " + dbhelper.CN_idR + "=" + Integer.toString(idR);
+        Cursor c = database.rawQuery(query,null);
+        if (c != null) c.moveToFirst();
+    }
+
     //Ingrediente: insertar
     //=======================
 
