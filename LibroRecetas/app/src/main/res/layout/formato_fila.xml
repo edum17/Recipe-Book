@@ -6,13 +6,13 @@
 
     <TextView
         android:id="@+id/_idR"
-        android:layout_width="fill_parent"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/nombreReceta"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:textSize="17sp"

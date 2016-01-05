@@ -48,6 +48,21 @@ public class SQLControlador {
         database.insert(DbHelper.TABLA_RECETA, null, valoresReceta(r));
     }
 
+    public ArrayList<String> leerReceta(int idR) {
+        ArrayList<String> res = new ArrayList<>();
+        String query = "SELECT " + dbhelper.CN_NombreR + "," + dbhelper.CN_Preparacion + "," + dbhelper.CN_Path + "," + dbhelper.CN_Tipo + " FROM " + dbhelper.TABLA_RECETA + " WHERE " + dbhelper.CN_idR + "=" + Integer.toString(idR);
+        Cursor c = database.rawQuery(query,null);
+        if (c != null) c.moveToFirst();
+        while (c.isAfterLast() == false) {
+            res.add(c.getString(c.getColumnIndex("_nombre")));
+            res.add(c.getString(c.getColumnIndex("_preparacion")));
+            res.add(c.getString(c.getColumnIndex("_path")));
+            res.add(c.getString(c.getColumnIndex("_tipo")));
+            c.moveToNext();
+        }
+        return res;
+    }
+
     public Cursor leerRecetaNombre(String nombreR) {
         String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + " FROM " + dbhelper.TABLA_RECETA + " WHERE '" + nombreR + "' = " + dbhelper.CN_NombreR;
         Cursor c = database.rawQuery(query,null);
@@ -86,7 +101,6 @@ public class SQLControlador {
             array.add(c.getString(c.getColumnIndex("_id")));
             c.moveToNext();
         }
-        //System.out.println("Id de la receta: " + Integer.parseInt(array.get(0)));
         return Integer.parseInt(array.get(0));
     }
 
@@ -101,8 +115,19 @@ public class SQLControlador {
         return res;
     }
 
-
     public void insertarIngredientes(Ingrediente i) {
         database.insert(DbHelper.TABLA_INGREDIENTE, null, valoresIngrediente(i));
+    }
+
+    public ArrayList<String> leerIngredientesReceta(int idR) {
+        ArrayList<String> res = new ArrayList<>();
+        String query = "SELECT " + dbhelper.CN_NombreI + " FROM " + dbhelper.TABLA_INGREDIENTE + " WHERE " + dbhelper.CN_idRI + "=" + Integer.toString(idR);
+        Cursor c = database.rawQuery(query,null);
+        if (c != null) c.moveToFirst();
+        while (c.isAfterLast() == false) {
+            res.add(c.getString(c.getColumnIndex("_nombre")));
+            c.moveToNext();
+        }
+        return res;
     }
 }

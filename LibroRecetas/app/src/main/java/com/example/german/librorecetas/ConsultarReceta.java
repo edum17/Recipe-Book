@@ -12,10 +12,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 public class ConsultarReceta extends ActionBarActivity {
@@ -27,8 +31,14 @@ public class ConsultarReceta extends ActionBarActivity {
     private final int PHOTO_CODE = 100;
     private final int SELECT_PICTURE = 200;
 
+    String idR;
     SQLControlador dbconeccion;
+
+    EditText nombre;
+    ListView listaIng;
+    EditText preparacion;
     ImageView imagen;
+    EditText tipo;
     String path;
     Button btFoto;
 
@@ -37,11 +47,29 @@ public class ConsultarReceta extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_receta);
 
-        imagen = (ImageView) findViewById(R.id.iVFotoR);
-        btFoto = (Button) findViewById(R.id.bFotoR);
-
         dbconeccion = new SQLControlador(this);
         dbconeccion.abrirBaseDatos();
+        idR = getIntent().getStringExtra("idR");
+
+        nombre = (EditText) findViewById(R.id.eTNombreR);
+        listaIng = (ListView) findViewById(R.id.listaIngredientesR);
+        preparacion = (EditText) findViewById(R.id.eTPreparacionR);
+        imagen = (ImageView) findViewById(R.id.iVFotoR);
+        btFoto = (Button) findViewById(R.id.bFotoR);
+        tipo = (EditText) findViewById(R.id.eTTipoComidaR);
+
+        ArrayList<String> receta = dbconeccion.leerReceta(Integer.parseInt(idR));
+        ArrayList<String> ingredientes = dbconeccion.leerIngredientesReceta(Integer.parseInt(idR));
+
+        nombre.setText(receta.get(0));
+        preparacion.setText(receta.get(1));
+        path = receta.get(2);
+        decodeBitMap(path);
+        tipo.setText(receta.get(3));
+
+        final ArrayAdapter<String> adapterLista;
+        adapterLista = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,ingredientes);
+        listaIng.setAdapter(adapterLista);
     }
 
     @Override

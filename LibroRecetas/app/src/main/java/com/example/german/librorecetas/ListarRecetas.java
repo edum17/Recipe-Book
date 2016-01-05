@@ -96,6 +96,8 @@ public class ListarRecetas extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent consultar_receta = new Intent(getApplicationContext(),ConsultarReceta.class);
+                String identficador = Long.toString(id);
+                consultar_receta.putExtra("idR", identficador);
                 startActivity(consultar_receta);
             }
         });
