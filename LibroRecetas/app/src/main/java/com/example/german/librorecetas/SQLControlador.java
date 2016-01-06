@@ -43,9 +43,28 @@ public class SQLControlador {
         return res;
     }
 
-    public void insertarDatos(Receta r) {
-        database.insert(DbHelper.TABLA_RECETA, null, valoresReceta(r));
+    private boolean existeReceta(String nombre) {
+        ArrayList<String> res = new ArrayList<>();
+        String query = "SELECT * FROM " + dbhelper.TABLA_RECETA + " WHERE " + dbhelper.CN_NombreR + "='" + nombre + "'";
+        Cursor c = database.rawQuery(query,null);
+        if (c != null) c.moveToFirst();
+        while (c.isAfterLast() == false) {
+            res.add(c.getString(c.getColumnIndex("_nombre")));
+            c.moveToNext();
+        }
+        System.out.println("************************************** size: " + res.size());
+        if (res.size() == 0) return true;
+        else return false;
     }
+
+    public boolean insertarDatos(Receta r) {
+        if (existeReceta(r.getNombre())) {
+            database.insert(DbHelper.TABLA_RECETA, null, valoresReceta(r));
+            return true;
+        }
+        else return false;
+    }
+
 
     public ArrayList<String> leerReceta(int idR) {
         ArrayList<String> res = new ArrayList<>();
@@ -140,9 +159,12 @@ public class SQLControlador {
     }
 
     public void eliminarReceta(int idR) {
-        String query = "DELETE FROM " + dbhelper.TABLA_RECETA + " WHERE " + dbhelper.CN_idR + "=" + Integer.toString(idR);
-        Cursor c = database.rawQuery(query,null);
-        if (c != null) c.moveToFirst();
+        database.delete(DbHelper.TABLA_RECETA,DbHelper.CN_idR + "=" + idR,null);
+    }
+
+    public int actualizarReceta(int idR, Receta newr) {
+        int i = database.update(DbHelper.TABLA_RECETA,valoresReceta(newr),DbHelper.CN_idR + "=" + idR,null);
+        return i;
     }
 
     //Ingrediente: insertar

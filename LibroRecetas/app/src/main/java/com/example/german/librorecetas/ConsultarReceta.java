@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,6 +81,7 @@ public class ConsultarReceta extends ActionBarActivity {
         listaIng.setAdapter(adapterLista);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -96,9 +98,16 @@ public class ConsultarReceta extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
-            guardarCambiosEfectuados();
-            Toast.makeText(getBaseContext(), "Cambios guardados", Toast.LENGTH_SHORT).show();
-            finish();
+            if (!nombre.getText().toString().isEmpty() && !preparacion.getText().toString().isEmpty() && !tipo.getText().toString().isEmpty()) {
+                guardarCambiosEfectuados();
+            }
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ConsultarReceta.this);
+                builder.setTitle("Campos incompletos").setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
+                builder.setMessage("Para poder guardar una receta es necesario rellenar todos los campos, a excepcion de la imagen de la receta y los ingredientes de esta.");
+                builder.setNeutralButton("Aceptar",null);
+                builder.show();
+            }
             return true;
         }
         else if (id == R.id.action_delete) {
@@ -110,7 +119,7 @@ public class ConsultarReceta extends ActionBarActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     dbconeccion.eliminarReceta(Integer.parseInt(idR));
                     Toast.makeText(getBaseContext(), "Receta eliminada", Toast.LENGTH_SHORT).show();
-                    finish();
+                    volverListarRecetas();
                 }
             });
             Adialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -136,13 +145,15 @@ public class ConsultarReceta extends ActionBarActivity {
     }
 
     public void guardarCambiosEfectuados() {
-        dbconeccion.eliminarReceta(Integer.parseInt(idR));
         Receta r = new Receta(nombre.getText().toString(), preparacion.getText().toString(), Path, tipo.getText().toString());
-        dbconeccion.insertarDatos(r);
-        for (int i = 0; i < ingredientes.size(); ++i) {
-            Ingrediente ing = new Ingrediente(ingredientes.get(i),dbconeccion._idReceta(nombre.getText().toString()));
-            dbconeccion.insertarIngredientes(ing);
-        }
+        dbconeccion.actualizarReceta(Integer.parseInt(idR),r);
+        Toast.makeText(getBaseContext(), "Receta actualizada", Toast.LENGTH_SHORT).show();
+        volverListarRecetas();
+    }
+
+    public void volverListarRecetas() {
+        Intent listarRecetas_intent = new Intent(getApplicationContext(),ListarRecetas.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(listarRecetas_intent);
     }
 
     public void makePicture(View v) {

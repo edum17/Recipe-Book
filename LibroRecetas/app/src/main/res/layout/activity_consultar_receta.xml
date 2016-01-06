@@ -90,7 +90,7 @@
                 android:layout_height="200dp"
                 android:background="@drawable/appwidget_inner_focused_l"
                 android:padding="5dp"
-                android:inputType="textMultiLine"
+                android:inputType="none"
                 android:ems="10"
                 android:textSize="17sp"
                 android:id="@+id/eTPreparacionR"

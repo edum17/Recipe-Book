@@ -68,7 +68,7 @@
                 android:capitalize="sentences"
                 android:hint="Escribir nombre"
                 android:background="@drawable/rounded_edittext"
-                android:inputType="text"
+                android:inputType="none"
                 android:text="@string/eTBuscar" />
 
             <ImageButton

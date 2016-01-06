@@ -158,8 +158,16 @@ public class NuevaReceta extends ActionBarActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
-            addRecetaDb();
-            Toast.makeText(getBaseContext(), "Receta guardada", Toast.LENGTH_SHORT).show();
+            if (!nombre.getText().toString().isEmpty() && !preparacion.getText().toString().isEmpty() && !tipo.getText().toString().isEmpty() && !ingSeleccionados.get(0).equals("Seleccionar ingredientes")) {
+                addRecetaDb();
+            }
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(NuevaReceta.this);
+                builder.setTitle("Campos incompletos").setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
+                builder.setMessage("Para poder guardar una receta es necesario rellenar todos los campos, a excepcion de la imagen de la receta.");
+                builder.setNeutralButton("Aceptar",null);
+                builder.show();
+            }
             return true;
         }
         else if (id == R.id.action_cancel) {
@@ -170,7 +178,7 @@ public class NuevaReceta extends ActionBarActivity{
         else if (id == R.id.action_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(NuevaReceta.this);
             builder.setTitle("Ayuda").setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
-            builder.setMessage("Para registrar una nueva receta, es imprecindible rellenar todos los campos, al igual que seleccionar los ingredientes de la receta. Tambien se puede insertar una imagen desde la camara o desde la galeria clicando en el boton ANADIR IMAGEN. Una vez finalizada la receta, en el menu, seleccionamos la opcion de Guardar.");
+            builder.setMessage("Para registrar una nueva receta, es imprecindible rellenar todos los campos, al igual que seleccionar los ingredientes de la receta. Tambien se puede insertar una imagen desde la camara o desde la galeria clicando en el boton ANADIR IMAGEN. Una vez finalizada la receta, en el menu, seleccionamos la opcion de Guardar.\nSi uno de los ingredientes no es correcto y se desea eliminarlo, tan solo tenemos que clicar sobre este para poder quitarlo de la lista.");
             builder.setNeutralButton("Aceptar",null);
             builder.show();
 
@@ -259,15 +267,17 @@ public class NuevaReceta extends ActionBarActivity{
     //String Nombre,String Ingredientes,String Preparacion, String Path, String Tipo
     public void addRecetaDb() {
         Receta r = new Receta(nombre.getText().toString(), preparacion.getText().toString(), Path, tipo.getText().toString());
-        dbconeccion.insertarDatos(r);
-        //Insertamos los ingredientes en la base de datos
-        for (int i = 0; i < ingSeleccionados.size(); ++i) {
-            Ingrediente ing = new Ingrediente(ingSeleccionados.get(i),dbconeccion._idReceta(nombre.getText().toString()));
-            dbconeccion.insertarIngredientes(ing);
+        if (dbconeccion.insertarDatos(r)) {
+            //Insertamos los ingredientes en la base de datos
+            for (int i = 0; i < ingSeleccionados.size(); ++i) {
+                Ingrediente ing = new Ingrediente(ingSeleccionados.get(i), dbconeccion._idReceta(nombre.getText().toString()));
+                dbconeccion.insertarIngredientes(ing);
+            }
+            dbconeccion.cerrar();
+            finish(); //Termina con el activity de alta y vuelve al menu principal
+            Toast.makeText(getBaseContext(), "Receta guardada", Toast.LENGTH_SHORT).show();
         }
-
-        dbconeccion.cerrar();
-        finish(); //Termina con el activity de alta y vuelve al menu principal
+        else Toast.makeText(getBaseContext(),"Ya existe una receta con este nombre.",Toast.LENGTH_LONG).show();
     }
 
     private void dissmiss() {
