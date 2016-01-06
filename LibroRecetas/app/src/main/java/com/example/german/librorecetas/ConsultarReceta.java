@@ -146,9 +146,13 @@ public class ConsultarReceta extends ActionBarActivity {
 
     public void guardarCambiosEfectuados() {
         Receta r = new Receta(nombre.getText().toString(), preparacion.getText().toString(), Path, tipo.getText().toString());
-        dbconeccion.actualizarReceta(Integer.parseInt(idR),r);
-        Toast.makeText(getBaseContext(), "Receta actualizada", Toast.LENGTH_SHORT).show();
-        volverListarRecetas();
+        if (!dbconeccion.existeReceta(nombre.getText().toString())) {
+            dbconeccion.actualizarReceta(Integer.parseInt(idR),r);
+            Toast.makeText(getBaseContext(), "Receta actualizada", Toast.LENGTH_SHORT).show();
+            volverListarRecetas();
+        }
+        else Toast.makeText(getBaseContext(),"Ya existe una receta con este nombre.",Toast.LENGTH_LONG).show();
+
     }
 
     public void volverListarRecetas() {

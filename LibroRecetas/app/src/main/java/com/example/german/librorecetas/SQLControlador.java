@@ -43,7 +43,7 @@ public class SQLControlador {
         return res;
     }
 
-    private boolean existeReceta(String nombre) {
+    public boolean existeReceta(String nombre) {
         ArrayList<String> res = new ArrayList<>();
         String query = "SELECT * FROM " + dbhelper.TABLA_RECETA + " WHERE " + dbhelper.CN_NombreR + "='" + nombre + "'";
         Cursor c = database.rawQuery(query,null);
