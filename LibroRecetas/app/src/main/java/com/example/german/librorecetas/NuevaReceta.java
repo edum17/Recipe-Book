@@ -270,7 +270,7 @@ public class NuevaReceta extends ActionBarActivity{
 
     private void dissmiss() {
         nombre.setText("");
-        listaIng.clearAnimation();
+        listaIng.clearTextFilter();
         spinIng.clearAnimation();
         preparacion.setText("");
         tipo.setText("");

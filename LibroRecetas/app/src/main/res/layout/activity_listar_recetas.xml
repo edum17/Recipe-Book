@@ -81,26 +81,18 @@
         </LinearLayout>
     </RadioGroup>
 
-    <View style="@style/Separator"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/abc_btn_borderless_material"
-        android:text="@string/bListarRecetas"
-        android:id="@+id/btListarRecetas"
-        android:onClick="clickListarRecetas"/>
 
     <View style="@style/Separator"/>
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:padding="5dp"
         android:textSize="17sp"
         android:textColor="@color/Blanco"
-        android:id="@+id/listaRecetas" />
+        android:id="@+id/listaRecetas"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"/>
 
 </LinearLayout>

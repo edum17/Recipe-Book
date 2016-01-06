@@ -44,62 +44,65 @@ public class ListarRecetas extends ActionBarActivity {
         lista = (ListView) findViewById(R.id.listaRecetas);
         lista.setTextFilterEnabled(true);
 
-    }
-
-    public void clickBuscarR(View v) {
-        if (tipo.isChecked()) {
-            Cursor cursor = dbconeccion.leerRecetaTipo(texto.getText().toString());
-            String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
-            int[] to = new int[] {R.id._idR,R.id.nombreReceta};
-
-            SimpleCursorAdapter adapter = new SimpleCursorAdapter(ListarRecetas.this, R.layout.formato_fila, cursor, from, to);
-
-            adapter.notifyDataSetChanged();
-            lista.setAdapter(adapter);
-        }
-
-        else if (ingrediente.isChecked()) {
-            Cursor cursor = dbconeccion.leerRecetaIngrediente(texto.getText().toString());
-            String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
-            int[] to = new int[] {R.id._idR,R.id.nombreReceta};
-
-            SimpleCursorAdapter adapter = new SimpleCursorAdapter(ListarRecetas.this, R.layout.formato_fila, cursor, from, to);
-
-            adapter.notifyDataSetChanged();
-            lista.setAdapter(adapter);
-        }
-        else if (noIngrediente.isChecked()) {
-            Cursor cursor = dbconeccion.leerRecetasNoIngrediente(texto.getText().toString());
-            String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
-            int[] to = new int[] {R.id._idR,R.id.nombreReceta};
-
-            SimpleCursorAdapter adapter = new SimpleCursorAdapter(ListarRecetas.this, R.layout.formato_fila, cursor, from, to);
-
-            adapter.notifyDataSetChanged();
-            lista.setAdapter(adapter);
-        }
-
-        //dbconeccion.cerrar();
-    }
-
-    public void clickListarRecetas(View v) {
-        Cursor cursor = dbconeccion.listarRecetas();
-        String[] from = new String[]{DbHelper.CN_idR,DbHelper.CN_NombreR};
-        int[] to = new int[] {R.id._idR,R.id.nombreReceta};
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(ListarRecetas.this, R.layout.formato_fila, cursor, from, to);
-
+        final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,dbconeccion.listarRecetas());
         adapter.notifyDataSetChanged();
         lista.setAdapter(adapter);
+
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent consultar_receta = new Intent(getApplicationContext(),ConsultarReceta.class);
-                String identficador = Long.toString(id);
+                Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
+                String identficador = Long.toString(adapter.getItemId(position));
                 consultar_receta.putExtra("idR", identficador);
                 startActivity(consultar_receta);
             }
         });
+    }
+
+    public void clickBuscarR(View v) {
+        if (tipo.isChecked()) {
+            final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,dbconeccion.listarRecetasTipo(texto.getText().toString()));
+            adapter.notifyDataSetChanged();
+            lista.setAdapter(adapter);
+            lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
+                    String identficador = Long.toString(adapter.getItemId(position));
+                    consultar_receta.putExtra("idR", identficador);
+                    startActivity(consultar_receta);
+                }
+            });
+        }
+
+        else if (ingrediente.isChecked()) {
+            final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,dbconeccion.listarRecetasIngrediente(texto.getText().toString()));
+            adapter.notifyDataSetChanged();
+            lista.setAdapter(adapter);
+            lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
+                    String identficador = Long.toString(adapter.getItemId(position));
+                    consultar_receta.putExtra("idR", identficador);
+                    startActivity(consultar_receta);
+                }
+            });
+        }
+        else if (noIngrediente.isChecked()) {
+            final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,dbconeccion.listarRecetasNoIngrediente(texto.getText().toString()));
+            adapter.notifyDataSetChanged();
+            lista.setAdapter(adapter);
+            lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
+                    String identficador = Long.toString(adapter.getItemId(position));
+                    consultar_receta.putExtra("idR", identficador);
+                    startActivity(consultar_receta);
+                }
+            });
+        }
 
         //dbconeccion.cerrar();
     }

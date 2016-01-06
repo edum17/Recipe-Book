@@ -5,10 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.ArrayAdapter;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.zip.CheckedInputStream;
 
 /**
  * Created by German on 30/12/2015.
@@ -17,16 +17,6 @@ public class SQLControlador {
     private DbHelper dbhelper;
     private Context ourcontext;
     private SQLiteDatabase database;
-
-
-    private ContentValues valoresReceta(Receta r) {
-        ContentValues res = new ContentValues();
-        res.put(DbHelper.CN_NombreR,r.getNombre());
-        res.put(DbHelper.CN_Preparacion, r.getPreparacion());
-        res.put(DbHelper.CN_Path, r.getPath());
-        res.put(DbHelper.CN_Tipo, r.getTipo());
-        return res;
-    }
 
     public SQLControlador(Context c) {
         ourcontext = c;
@@ -44,6 +34,15 @@ public class SQLControlador {
 
     //Receta: Inerta, listar, eliminar y modificar
     //====================================
+    private ContentValues valoresReceta(Receta r) {
+        ContentValues res = new ContentValues();
+        res.put(DbHelper.CN_NombreR,r.getNombre());
+        res.put(DbHelper.CN_Preparacion, r.getPreparacion());
+        res.put(DbHelper.CN_Path, r.getPath());
+        res.put(DbHelper.CN_Tipo, r.getTipo());
+        return res;
+    }
+
     public void insertarDatos(Receta r) {
         database.insert(DbHelper.TABLA_RECETA, null, valoresReceta(r));
     }
@@ -63,40 +62,69 @@ public class SQLControlador {
         return res;
     }
 
-    public Cursor leerRecetaNombre(String nombreR) {
-        String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + " FROM " + dbhelper.TABLA_RECETA + " WHERE '" + nombreR + "' = " + dbhelper.CN_NombreR;
-        Cursor c = database.rawQuery(query,null);
-        if (c != null) c.moveToFirst();
-        return c;
-    }
-
-    public Cursor leerRecetaIngrediente(String nombreI) {
+    public ArrayList<Item> listarRecetasIngrediente(String nombreI) {
         //String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + " FROM " + dbhelper.TABLA_RECETA + " WHERE EXISTS (SELECT * FROM " + dbhelper.TABLA_INGREDIENTE + " WHERE " + dbhelper.CN_idR + "=" + dbhelper.CN_idRI + " and " + dbhelper.CN_NombreI + "='" + nombreI + "')";
         String query = "SELECT r._id,r._nombre,r._path FROM Receta r WHERE EXISTS (SELECT * FROM Ingrediente i WHERE i._idR=r._id and i._nombre='" + nombreI + "')";
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
-        return c;
+        ArrayList<Item> res = new ArrayList<>();
+        while (c.isAfterLast() == false) {
+            Item i = new Item();
+            i.setIdR(c.getInt(c.getColumnIndex("_id")));
+            i.setNombreR(c.getString(c.getColumnIndex("_nombre")));
+            i.setPathR(c.getString(c.getColumnIndex("_path")));
+            res.add(i);
+            c.moveToNext();
+        }
+        return res;
     }
 
-    public Cursor leerRecetasNoIngrediente(String nombreI) {
+    public ArrayList<Item> listarRecetasNoIngrediente(String nombreI) {
         String query = "SELECT r._id,r._nombre,r._path FROM Receta r WHERE NOT EXISTS (SELECT * FROM Ingrediente i WHERE i._idR=r._id and i._nombre='" + nombreI + "')";
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
-        return c;
+        ArrayList<Item> res = new ArrayList<>();
+        while (c.isAfterLast() == false) {
+            Item i = new Item();
+            i.setIdR(c.getInt(c.getColumnIndex("_id")));
+            i.setNombreR(c.getString(c.getColumnIndex("_nombre")));
+            i.setPathR(c.getString(c.getColumnIndex("_path")));
+            res.add(i);
+            c.moveToNext();
+        }
+        return res;
     }
 
-    public Cursor leerRecetaTipo(String nombreT) {
-        String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + " FROM " + dbhelper.TABLA_RECETA + " WHERE '" + nombreT + "' = " + dbhelper.CN_Tipo;
+    public ArrayList<Item> listarRecetasTipo(String nombreT) {
+        String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + "," + dbhelper.CN_Path + " FROM " + dbhelper.TABLA_RECETA + " WHERE '" + nombreT + "' = " + dbhelper.CN_Tipo;
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
-        return c;
+        ArrayList<Item> res = new ArrayList<>();
+        while (c.isAfterLast() == false) {
+            Item i = new Item();
+            i.setIdR(c.getInt(c.getColumnIndex("_id")));
+            i.setNombreR(c.getString(c.getColumnIndex("_nombre")));
+            i.setPathR(c.getString(c.getColumnIndex("_path")));
+            res.add(i);
+            c.moveToNext();
+        }
+        return res;
     }
 
-    public Cursor listarRecetas() {
-        String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + " FROM " + dbhelper.TABLA_RECETA;
+    public ArrayList<Item> listarRecetas() {
+        String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + "," + dbhelper.CN_Path + " FROM " + dbhelper.TABLA_RECETA;
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
-        return c;
+        ArrayList<Item> res = new ArrayList<>();
+        while (c.isAfterLast() == false) {
+            Item i = new Item();
+            i.setIdR(c.getInt(c.getColumnIndex("_id")));
+            i.setNombreR(c.getString(c.getColumnIndex("_nombre")));
+            i.setPathR(c.getString(c.getColumnIndex("_path")));
+            res.add(i);
+            c.moveToNext();
+        }
+        return res;
     }
 
     public int _idReceta(String nombreR) {
