@@ -52,13 +52,12 @@ public class SQLControlador {
             res.add(c.getString(c.getColumnIndex("_nombre")));
             c.moveToNext();
         }
-        System.out.println("************************************** size: " + res.size());
-        if (res.size() == 0) return true;
-        else return false;
+        if (res.size() == 0) return false;
+        else return true;
     }
 
     public boolean insertarDatos(Receta r) {
-        if (existeReceta(r.getNombre())) {
+        if (!existeReceta(r.getNombre())) {
             database.insert(DbHelper.TABLA_RECETA, null, valoresReceta(r));
             return true;
         }
