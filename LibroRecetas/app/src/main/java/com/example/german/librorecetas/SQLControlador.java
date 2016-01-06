@@ -64,7 +64,7 @@ public class SQLControlador {
 
     public ArrayList<Item> listarRecetasIngrediente(String nombreI) {
         //String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + " FROM " + dbhelper.TABLA_RECETA + " WHERE EXISTS (SELECT * FROM " + dbhelper.TABLA_INGREDIENTE + " WHERE " + dbhelper.CN_idR + "=" + dbhelper.CN_idRI + " and " + dbhelper.CN_NombreI + "='" + nombreI + "')";
-        String query = "SELECT r._id,r._nombre,r._path FROM Receta r WHERE EXISTS (SELECT * FROM Ingrediente i WHERE i._idR=r._id and i._nombre='" + nombreI + "')";
+        String query = "SELECT r._id,r._nombre,r._path FROM Receta r WHERE EXISTS (SELECT * FROM Ingrediente i WHERE i._idR=r._id and i._nombre='" + nombreI + "') ORDER BY r._nombre";
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
         ArrayList<Item> res = new ArrayList<>();
@@ -80,7 +80,7 @@ public class SQLControlador {
     }
 
     public ArrayList<Item> listarRecetasNoIngrediente(String nombreI) {
-        String query = "SELECT r._id,r._nombre,r._path FROM Receta r WHERE NOT EXISTS (SELECT * FROM Ingrediente i WHERE i._idR=r._id and i._nombre='" + nombreI + "')";
+        String query = "SELECT r._id,r._nombre,r._path FROM Receta r WHERE NOT EXISTS (SELECT * FROM Ingrediente i WHERE i._idR=r._id and i._nombre='" + nombreI + "') ORDER BY r._nombre";
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
         ArrayList<Item> res = new ArrayList<>();
@@ -96,7 +96,7 @@ public class SQLControlador {
     }
 
     public ArrayList<Item> listarRecetasTipo(String nombreT) {
-        String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + "," + dbhelper.CN_Path + " FROM " + dbhelper.TABLA_RECETA + " WHERE '" + nombreT + "' = " + dbhelper.CN_Tipo;
+        String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + "," + dbhelper.CN_Path + " FROM " + dbhelper.TABLA_RECETA + " WHERE '" + nombreT + "' = " + dbhelper.CN_Tipo + " ORDER BY " + dbhelper.CN_NombreR;
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
         ArrayList<Item> res = new ArrayList<>();
@@ -112,7 +112,7 @@ public class SQLControlador {
     }
 
     public ArrayList<Item> listarRecetas() {
-        String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + "," + dbhelper.CN_Path + " FROM " + dbhelper.TABLA_RECETA;
+        String query = "SELECT " + dbhelper.CN_idR + "," + dbhelper.CN_NombreR + "," + dbhelper.CN_Path + " FROM " + dbhelper.TABLA_RECETA + " ORDER BY " + dbhelper.CN_NombreR;
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
         ArrayList<Item> res = new ArrayList<>();
@@ -160,7 +160,7 @@ public class SQLControlador {
 
     public ArrayList<String> leerIngredientesReceta(int idR) {
         ArrayList<String> res = new ArrayList<>();
-        String query = "SELECT " + dbhelper.CN_NombreI + " FROM " + dbhelper.TABLA_INGREDIENTE + " WHERE " + dbhelper.CN_idRI + "=" + Integer.toString(idR);
+        String query = "SELECT " + dbhelper.CN_NombreI + " FROM " + dbhelper.TABLA_INGREDIENTE + " WHERE " + dbhelper.CN_idRI + "=" + Integer.toString(idR) + " ORDER BY " + dbhelper.CN_NombreI;
         Cursor c = database.rawQuery(query,null);
         if (c != null) c.moveToFirst();
         while (c.isAfterLast() == false) {

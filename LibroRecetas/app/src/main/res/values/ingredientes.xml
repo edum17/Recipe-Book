@@ -3,15 +3,39 @@
 
     <string-array name="ingredientes">
         <item>Seleccionar ingredientes</item>
+
         <item>Aceite</item>
-        <item>Sal</item>
-        <item>Pimienta</item>
+        <item>Ajo</item>
+        <item>Arroz</item>
+        <item>Azúcar</item>
+        <item>Azúcar glas</item>
         <item>Bacon</item>
-        <item>Queso gorgonzola</item>
-        <item>Patatas</item>
-        <item>Queso mozzarella</item>
-        <item>Espaguetis</item>
+        <item>Bechamel</item>
+        <item>Calabacín</item>
+        <item>Carne picada</item>
+        <item>Cebolla</item>
+        <item>Chocolate</item>
+        <item>Fruta</item>
+        <item>Harina</item>
+        <item>Huevo</item>
+        <item>Leche</item>
+        <item>Limón</item>
+        <item>Mantequilla</item>
         <item>Nata</item>
+        <item>Pan</item>
+        <item>Pasta</item>
+        <item>Patatas</item>
+        <item>Pimienta</item>
+        <item>Pimiento rojo</item>
+        <item>Pollo</item>
+        <item>Queso</item>
+        <item>Queso gorgonzola</item>
+        <item>Queso mozzarella</item>
+        <item>Sal</item>
+        <item>Tomate</item>
+        <item>Tomate frito</item>
+        <item>Vino blanco</item>
+
     </string-array>
 
 </resources>

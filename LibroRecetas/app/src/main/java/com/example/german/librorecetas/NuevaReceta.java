@@ -170,7 +170,7 @@ public class NuevaReceta extends ActionBarActivity{
         else if (id == R.id.action_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(NuevaReceta.this);
             builder.setTitle("Ayuda").setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
-            builder.setMessage("Para registrar una nueva receta, es imprecindible rellenar todos los campos, al igual que seleccionar los ingredientes de la receta. Tambien se puede inertar una imagen desde la camara o desde la galeria clicando en el boton AÑADIR IMAGEN. Una vez finalizada la receta, en el menu, le damos a guardar.");
+            builder.setMessage("Para registrar una nueva receta, es imprecindible rellenar todos los campos, al igual que seleccionar los ingredientes de la receta. Tambien se puede insertar una imagen desde la camara o desde la galeria clicando en el boton ANADIR IMAGEN. Una vez finalizada la receta, en el menu, seleccionamos la opcion de Guardar.");
             builder.setNeutralButton("Aceptar",null);
             builder.show();
 

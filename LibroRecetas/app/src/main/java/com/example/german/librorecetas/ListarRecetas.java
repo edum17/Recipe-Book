@@ -16,6 +16,9 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class ListarRecetas extends ActionBarActivity {
@@ -45,6 +48,10 @@ public class ListarRecetas extends ActionBarActivity {
         lista = (ListView) findViewById(R.id.listaRecetas);
         lista.setTextFilterEnabled(true);
 
+        listarTodasRecetas();
+    }
+
+    private void listarTodasRecetas() {
         final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,dbconeccion.listarRecetas());
         adapter.notifyDataSetChanged();
         lista.setAdapter(adapter);
@@ -62,48 +69,70 @@ public class ListarRecetas extends ActionBarActivity {
 
     public void clickBuscarR(View v) {
         if (tipo.isChecked()) {
-            final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,dbconeccion.listarRecetasTipo(texto.getText().toString()));
-            adapter.notifyDataSetChanged();
-            lista.setAdapter(adapter);
-            lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
-                    String identficador = Long.toString(adapter.getItemId(position));
-                    consultar_receta.putExtra("idR", identficador);
-                    startActivity(consultar_receta);
-                }
-            });
+            ArrayList<Item> items = dbconeccion.listarRecetasTipo(texto.getText().toString());
+            final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,items);
+            if(items.size() != 0) {
+                adapter.notifyDataSetChanged();
+                lista.setAdapter(adapter);
+                lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
+                        String identficador = Long.toString(adapter.getItemId(position));
+                        consultar_receta.putExtra("idR", identficador);
+                        startActivity(consultar_receta);
+                    }
+                });
+            }
+            else {
+                Toast.makeText(getBaseContext(),"No se ha encontrado ninguna receta", Toast.LENGTH_LONG).show();
+                listarTodasRecetas();
+            }
         }
 
         else if (ingrediente.isChecked()) {
-            final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,dbconeccion.listarRecetasIngrediente(texto.getText().toString()));
-            adapter.notifyDataSetChanged();
-            lista.setAdapter(adapter);
-            lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
-                    String identficador = Long.toString(adapter.getItemId(position));
-                    consultar_receta.putExtra("idR", identficador);
-                    startActivity(consultar_receta);
-                }
-            });
+            ArrayList<Item> items = dbconeccion.listarRecetasIngrediente(texto.getText().toString());
+            final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,items);
+            if(items.size() != 0) {
+                adapter.notifyDataSetChanged();
+                lista.setAdapter(adapter);
+                lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
+                        String identficador = Long.toString(adapter.getItemId(position));
+                        consultar_receta.putExtra("idR", identficador);
+                        startActivity(consultar_receta);
+                    }
+                });
+            }
+            else {
+                Toast.makeText(getBaseContext(),"No se ha encontrado ninguna receta", Toast.LENGTH_LONG).show();
+                listarTodasRecetas();
+            }
         }
         else if (noIngrediente.isChecked()) {
-            final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,dbconeccion.listarRecetasNoIngrediente(texto.getText().toString()));
-            adapter.notifyDataSetChanged();
-            lista.setAdapter(adapter);
-            lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
-                    String identficador = Long.toString(adapter.getItemId(position));
-                    consultar_receta.putExtra("idR", identficador);
-                    startActivity(consultar_receta);
-                }
-            });
+            ArrayList<Item> items = dbconeccion.listarRecetasNoIngrediente(texto.getText().toString());
+            final ListViewAdapter adapter = new ListViewAdapter(ListarRecetas.this,items);
+            if(items.size() != 0) {
+                adapter.notifyDataSetChanged();
+                lista.setAdapter(adapter);
+                lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
+                        String identficador = Long.toString(adapter.getItemId(position));
+                        consultar_receta.putExtra("idR", identficador);
+                        startActivity(consultar_receta);
+                    }
+                });
+            }
+            else {
+                Toast.makeText(getBaseContext(),"No se ha encontrado ninguna receta", Toast.LENGTH_LONG).show();
+                listarTodasRecetas();
+            }
         }
+        else listarTodasRecetas();
 
         //dbconeccion.cerrar();
     }
@@ -126,7 +155,7 @@ public class ListarRecetas extends ActionBarActivity {
         if (id == R.id.action_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(ListarRecetas.this);
             builder.setTitle("Ayuda").setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
-            builder.setMessage("Para listar una receta determinada, es necesaria seleccionar una de las tres opciones disponible, escribir la palabra a buscar y clicar en el boton de buscar. Una vez obtenidas las recetas deseadas, podemos acceder a una receta clicando sobre ella.");
+            builder.setMessage("Para listar una receta determinada, es necesario seleccionar una de las tres opciones disponible, escribir la palabra a buscar y clicar en el boton de buscar. Una vez obtenidas las recetas deseadas, podemos acceder a una receta clicando sobre ella.");
             builder.setNeutralButton("Aceptar",null);
             builder.show();
             return true;
