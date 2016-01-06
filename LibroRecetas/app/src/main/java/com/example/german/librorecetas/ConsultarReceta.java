@@ -124,6 +124,11 @@ public class ConsultarReceta extends ActionBarActivity {
             return true;
         }
         else if (id == R.id.action_help) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ConsultarReceta.this);
+            builder.setTitle("Ayuda").setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
+            builder.setMessage("Para guardar los cambios reaizados en los diferentes campos de la receta, clicamos en Guardar cambios. De la misma manera, si queremos eliminar una receta tan solo tenemos que clicar en Eliminar receta.");
+            builder.setNeutralButton("Aceptar",null);
+            builder.show();
             return true;
         }
 

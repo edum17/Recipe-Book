@@ -1,10 +1,13 @@
 package com.example.german.librorecetas;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,11 +46,19 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_help) {
-            Toast.makeText(getBaseContext(),"Has pulsado en Ayuda",Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Ayuda").setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
+            builder.setMessage("Si se desea registrar una receta, accedemos a NUEVA RECETA. En caso de querer consultar una receta especifica, accedemos a LISTA DE RECETAS.");
+            builder.setNeutralButton("Aceptar",null);
+            builder.show();
+            //Toast.makeText(getBaseContext(),"Has pulsado en Ayuda",Toast.LENGTH_SHORT).show();
             return true;
         }
         else if (id == R.id.action_about) {
-            Toast.makeText(getBaseContext(),"Has pulsado en About",Toast.LENGTH_SHORT).show();
+            final Toast t = Toast.makeText(getBaseContext(),"Libro de Recetas es una aplicacion para gestionar recetas de cocina.\nGerman Eduardo Mora Macias.\nLa version de la aplicacion v.1.0.",Toast.LENGTH_LONG);
+            t.setGravity(Gravity.BOTTOM, 20, 20);
+            t.show();
+
             return true;
         }
 

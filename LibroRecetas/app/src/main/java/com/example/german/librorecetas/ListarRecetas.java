@@ -1,5 +1,6 @@
 package com.example.german.librorecetas;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -123,6 +124,11 @@ public class ListarRecetas extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_help) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ListarRecetas.this);
+            builder.setTitle("Ayuda").setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
+            builder.setMessage("Para listar una receta determinada, es necesaria seleccionar una de las tres opciones disponible, escribir la palabra a buscar y clicar en el boton de buscar. Una vez obtenidas las recetas deseadas, podemos acceder a una receta clicando sobre ella.");
+            builder.setNeutralButton("Aceptar",null);
+            builder.show();
             return true;
         }
 
