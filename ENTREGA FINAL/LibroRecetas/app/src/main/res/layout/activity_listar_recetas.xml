@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@color/Azul"
+    tools:context=".ListarRecetas">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tVBuscar"
+        android:textColor="@color/Blanco"
+        android:textSize="17sp"
+        android:id="@+id/textView" />
+
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_gravity="center">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:text="@string/rBTipo"
+            android:textColor="@color/Blanco"
+            android:id="@+id/rBTipo" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rBIngrediente"
+            android:textColor="@color/Blanco"
+            android:textSize="17sp"
+            android:id="@+id/rBIngrediente" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rBNoIngrediente"
+            android:id="@+id/rBNoIngrediente"
+            android:textColor="@color/Blanco"
+            android:textSize="17sp"
+            android:layout_gravity="center_horizontal"
+            android:checked="false" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <EditText
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/eTBuscar"
+                android:textSize="17sp"
+                android:textColor="@color/Blanco"
+                android:ellipsize="start"
+                android:capitalize="sentences"
+                android:hint="Escribir nombre"
+                android:background="@drawable/rounded_edittext"
+                android:inputType="none"
+                android:text="@string/eTBuscar" />
+
+            <ImageButton
+                android:layout_width="34dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButton"
+                android:background="@drawable/abc_ic_search_api_mtrl_alpha"
+                android:clickable="true"
+                android:onClick="clickBuscarR" />
+        </LinearLayout>
+    </RadioGroup>
+
+
+    <View style="@style/Separator"/>
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="5dp"
+        android:textSize="17sp"
+        android:textColor="@color/Blanco"
+        android:id="@+id/listaRecetas"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"/>
+
+</LinearLayout>

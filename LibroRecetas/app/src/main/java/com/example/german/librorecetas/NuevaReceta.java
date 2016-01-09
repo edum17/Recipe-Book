@@ -178,11 +178,9 @@ public class NuevaReceta extends ActionBarActivity{
         else if (id == R.id.action_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(NuevaReceta.this);
             builder.setTitle("Ayuda").setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
-            builder.setMessage("Para registrar una nueva receta, es imprecindible rellenar todos los campos, al igual que seleccionar los ingredientes de la receta. Tambien se puede insertar una imagen desde la camara o desde la galeria clicando en el boton ANADIR IMAGEN. Una vez finalizada la receta, en el menu, seleccionamos la opcion de Guardar.\nSi uno de los ingredientes no es correcto y se desea eliminarlo, tan solo tenemos que clicar sobre este para poder quitarlo de la lista.");
+            builder.setMessage("Para registrar una nueva receta, es imprecindible rellenar todos los campos, al igual que seleccionar los ingredientes de la receta. Tambien se puede insertar una imagen desde la camara o desde la galeria clicando en el boton Anadir imagen. Una vez finalizada la receta, en el menu, seleccionamos la opcion de Guardar.\nSi uno de los ingredientes no es correcto y se desea eliminarlo, tan solo tenemos que clicar sobre este para poder quitarlo de la lista.");
             builder.setNeutralButton("Aceptar",null);
             builder.show();
-
-            Toast.makeText(getBaseContext(),"Has pulsado en Ayuda",Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -221,7 +219,7 @@ public class NuevaReceta extends ActionBarActivity{
                     String dir = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY + File.separator + TEMPORAL_PICTURE_NAME;
                     decodeBitMap(dir); //Decodifica la imagen para presentarsela al usuario
                 }
-            break;
+                break;
             case SELECT_PICTURE:
                 if (resultCode == RESULT_OK) {
                     Uri path = data.getData();
@@ -242,7 +240,7 @@ public class NuevaReceta extends ActionBarActivity{
                     //Path = path.getPath();
                     //imagen.setImageURI(path);
                 }
-            break;
+                break;
         }
     }
 
@@ -282,8 +280,9 @@ public class NuevaReceta extends ActionBarActivity{
 
     private void dissmiss() {
         nombre.setText("");
-        listaIng.clearTextFilter();
-        spinIng.clearAnimation();
+        decodeBitMap("");
+        ingSeleccionados = new ArrayList<>();
+        anadirIngredientesLista();
         preparacion.setText("");
         tipo.setText("");
     }

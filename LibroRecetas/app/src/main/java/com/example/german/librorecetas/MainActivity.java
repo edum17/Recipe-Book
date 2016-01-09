@@ -48,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Ayuda").setIcon(getResources().getDrawable(android.R.drawable.ic_menu_info_details));
-            builder.setMessage("Si se desea registrar una receta, accedemos a NUEVA RECETA. En caso de querer consultar una receta especifica, accedemos a LISTA DE RECETAS.");
+            builder.setMessage("Si se desea registrar una receta, accedemos a Nueva receta. En caso de querer consultar una receta especifica, accedemos a Lista de recetas.");
             builder.setNeutralButton("Aceptar",null);
             builder.show();
             //Toast.makeText(getBaseContext(),"Has pulsado en Ayuda",Toast.LENGTH_SHORT).show();
@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
         //Toast.makeText(getBaseContext(), "Has pulsado Nueva Receta", Toast.LENGTH_SHORT).show();
         //Vamos a la pantalla de la nueva receta
         btNuevaR = (Button) findViewById(R.id.btNuevaR);
-        Intent nueva_receta = new Intent(getApplicationContext(),NuevaReceta.class);
+        Intent nueva_receta = new Intent(getApplicationContext(), com.example.german.librorecetas.NuevaReceta.class);
         startActivity(nueva_receta);
     }
 
@@ -81,3 +81,4 @@ public class MainActivity extends ActionBarActivity {
         startActivity(listar_recetas);
     }
 }
+

@@ -48,6 +48,10 @@ public class ListViewAdapter extends BaseAdapter {
         return recetas.get(position).getIdR();
     }
 
+    public String getItemName(int position) {
+        return recetas.get(position).getNombreR();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

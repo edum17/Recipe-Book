@@ -92,7 +92,7 @@ public class DbHelper extends SQLiteOpenHelper{
         ContentValues asado_pollo = new ContentValues();
         asado_pollo.put(CN_NombreR, "Asado de pollo con patatas");
         asado_pollo.put(CN_Preparacion, "En primer lugar se pelan las patatas, cebollas, y ajos. Seguido de lo cual en la bandeja de hornear se pone aceite, se ponen los ajos, una capa de cebolla, otra capa de patatas y otra de tomate. Se pone el pollo en la capa superior, se incorpora un vaso de vino y se sazona al gusto. Finalmente se hornea a 180 grados durante una hora.");
-        asado_pollo.put(CN_Path, "storage/sdcard0/asado_pollo.png");
+        asado_pollo.put(CN_Path, "asado_pollo");
         asado_pollo.put(CN_Tipo, "Mediterranea");
         db.insert(TABLA_RECETA, null, asado_pollo);
         ContentValues pollo = new ContentValues();
@@ -146,7 +146,7 @@ public class DbHelper extends SQLiteOpenHelper{
         ContentValues crepes = new ContentValues();
         crepes.put(CN_NombreR, "Crepes de chocolate con frutas de temporada");
         crepes.put(CN_Preparacion, "Se bate la leche, el huevo y la harina hasta que quede una masa liquida y homogenea. En una sarten caliente se pone un poco de mantequilla y se vierte parte de la masa, se voltea para hacerlo hacia el otro lado. Una vez hecho el crepe, se pone chocolate y se dobla. Finalmente se sirve espolvoreando azucar glas por encima junto con la fruta de temporada.");
-        crepes.put(CN_Path, "storage/sdcard0/crepes_chocolate.png");
+        crepes.put(CN_Path, "crepes");
         crepes.put(CN_Tipo, "Francesa");
         db.insert(TABLA_RECETA, null, crepes);
 
@@ -190,7 +190,7 @@ public class DbHelper extends SQLiteOpenHelper{
         ContentValues torrijas = new ContentValues();
         torrijas.put(CN_NombreR, "Torrijas");
         torrijas.put(CN_Preparacion, "Se cuece la leche con una rama de canela y la corteza de limon. Se retira y se vierte sobre el pan cortado a rodajas previamente. Una vez que quede bien empapado, se frie en una sarten con aceite caliente. Y finalmente se recubre de azucar y canela en polvo.");
-        torrijas.put(CN_Path, "storage/sdcard0/torrijas.png");
+        torrijas.put(CN_Path, "torrijas");
         torrijas.put(CN_Tipo, "Mediterranea");
         db.insert(TABLA_RECETA, null, torrijas);
 
@@ -227,9 +227,9 @@ public class DbHelper extends SQLiteOpenHelper{
 
     private void insertReceta4(SQLiteDatabase db) {
         ContentValues lasana = new ContentValues();
-        lasana.put(CN_NombreR, "Lasaña de carne");
+        lasana.put(CN_NombreR, "Lasana de carne");
         lasana.put(CN_Preparacion, "En una sarten se sofrie la cebolla y el pimiento cortado en juliana, se pone la carne picada y una pizca de sal. Una vez sofrito todo, se le incorpora el tomate frito, de manera que el relleno queda listo. Seguido de lo cual se procede a montar las capas del plato, poniendo en una bandeja para hornear capas de pasta y del sofrito tantas veces como se desee. Finalmente se cubre con bechamel y queso rallado, horneando hasta que quede gratinado.");
-        lasana.put(CN_Path, "storage/sdcard0/lasana.png");
+        lasana.put(CN_Path, "lasana");
         lasana.put(CN_Tipo, "Italiana");
         db.insert(TABLA_RECETA, null, lasana);
 
@@ -279,7 +279,7 @@ public class DbHelper extends SQLiteOpenHelper{
         ContentValues zarangollo = new ContentValues();
         zarangollo.put(CN_NombreR, "Zarangollo");
         zarangollo.put(CN_Preparacion, "En una sarten se sofrie en primer lugar la patata, despues se incorpora la cebolla y el calabacin. Una vez sofrito todo se ponen los huevos y se va removiendo de manera que queda un revuelto. ");
-        zarangollo.put(CN_Path, "storage/sdcard0/zarangollo.png");
+        zarangollo.put(CN_Path, "zarangollo");
         zarangollo.put(CN_Tipo, "Mediterranea");
         db.insert(TABLA_RECETA, null, zarangollo);
 

@@ -1,0 +1,183 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:background="@color/Azul">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/tVNombreNR"
+                android:shape="rectangle"
+                android:textColor="@color/Blanco"
+                android:background="@drawable/rounded_edittext"
+                android:id="@+id/tVNombreNR"
+                android:fontFamily="font/ARBERKLEY.ttf"
+                android:textSize="17sp"
+                android:singleLine="false"/>
+
+            <View style="@style/Separator"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:id="@+id/eTNombre"
+                android:inputType="none"
+                android:textColor="@color/Blanco"
+                android:text="@string/eTNombre"
+                android:ellipsize="start"
+                android:textSize="17sp"
+                android:capitalize="sentences"
+                android:hint="Escribir nombre"
+                android:background="@drawable/appwidget_inner_focused_l"/>
+
+            <View style="@style/Separator"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/tVIngrediente"
+                android:id="@+id/tVIngrediente"
+                android:textColor="@color/Blanco"
+                android:background="@drawable/rounded_edittext"
+                android:fontFamily="font/ARBERKLEY.ttf"
+                android:textSize="17sp"/>
+
+            <View style="@style/Separator"/>
+
+            <Spinner
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spIngredientes"
+                android:textSize="17sp"/>
+
+            <View style="@style/Separator"/>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:id="@+id/listaIngredientes"
+                android:textSize="17sp"
+                android:padding="5dp"/>
+
+            <View style="@style/Separator"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/tVPreparacion"
+                android:id="@+id/tVPreparacion"
+                android:textSize="17sp"
+                android:textColor="@color/Blanco"
+                android:background="@drawable/rounded_edittext"/>
+
+            <View style="@style/Separator"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/appwidget_inner_focused_l"
+                android:padding="5dp"
+                android:inputType="none"
+                android:ems="10"
+                android:textSize="17sp"
+                android:id="@+id/eTPreparacion"
+                android:textColor="@color/Blanco"
+                android:text="@string/eTPreparacion"
+                android:singleLine="false"
+                android:gravity="left|top"
+                android:ellipsize="start"
+                android:capitalize="sentences"
+                android:hint="Escribir descripcion"
+                android:textAlignment="gravity"/>
+
+            <View style="@style/Separator"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/tVFoto"
+                android:id="@+id/tVFoto"
+                android:textColor="@color/Blanco"
+                android:background="@drawable/rounded_edittext"
+                android:textSize="17sp"/>
+
+            <View style="@style/Separator"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/iVFoto"/>
+
+            <View style="@style/Separator"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/bFoto"
+                android:id="@+id/bFoto"
+                android:clickable="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_button"
+                android:onClick="makePicture"
+                android:textSize="17sp"
+                android:textColor="@color/Blanco" />
+
+            <View style="@style/Separator"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/tVTipoComida"
+                android:id="@+id/tVTipoComida"
+                android:textColor="@color/Blanco"
+                android:background="@drawable/rounded_edittext"
+                android:textSize="17sp"
+                android:capitalize="sentences"/>
+
+            <View style="@style/Separator"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/eTTipoComida"
+                android:textColor="@color/Blanco"
+                android:textSize="17sp"
+                android:text="@string/eTTipoComida"
+                android:inputType="none"
+                android:ellipsize="start"
+                android:capitalize="sentences"
+                android:hint="Escribir tipo"
+                android:background="@drawable/appwidget_inner_focused_l"/>
+
+            <View style="@style/Separator"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

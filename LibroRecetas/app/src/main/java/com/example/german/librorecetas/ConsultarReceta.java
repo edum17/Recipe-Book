@@ -39,6 +39,7 @@ public class ConsultarReceta extends ActionBarActivity {
     private final int SELECT_PICTURE = 200;
 
     String idR;
+    String nombreR;
     SQLControlador dbconeccion;
 
     EditText nombre;
@@ -59,6 +60,7 @@ public class ConsultarReceta extends ActionBarActivity {
         dbconeccion = new SQLControlador(this);
         dbconeccion.abrirBaseDatos();
         idR = getIntent().getStringExtra("idR");
+        nombreR = getIntent().getStringExtra("nombreR");
 
         nombre = (EditText) findViewById(R.id.eTNombreR);
         listaIng = (ListView) findViewById(R.id.listaIngredientesR);
@@ -146,7 +148,9 @@ public class ConsultarReceta extends ActionBarActivity {
 
     public void guardarCambiosEfectuados() {
         Receta r = new Receta(nombre.getText().toString(), preparacion.getText().toString(), Path, tipo.getText().toString());
-        if (!dbconeccion.existeReceta(nombre.getText().toString())) {
+        boolean existeNombreActual = dbconeccion.existeReceta(nombre.getText().toString());
+
+        if (nombre.getText().toString().equals(nombreR) || !existeNombreActual) {
             dbconeccion.actualizarReceta(Integer.parseInt(idR),r);
             Toast.makeText(getBaseContext(), "Receta actualizada", Toast.LENGTH_SHORT).show();
             volverListarRecetas();
@@ -220,8 +224,25 @@ public class ConsultarReceta extends ActionBarActivity {
     private void decodeBitMap(String dir) {
         Bitmap bitmap;
         Path = dir;
-        bitmap = BitmapFactory.decodeFile(dir);
-        imagen.setImageBitmap(bitmap);
+        if (dir.equals("asado_pollo")) {
+            //imagen.setImageResource(R.drawable.asado_pollo);
+        }
+        else if (dir.equals("crepes")) {
+            //imagen.setImageResource(R.drawable.crepes_chocolate);
+        }
+        else if (dir.equals("torrijas")) {
+            //imagen.setImageResource(R.drawable.torrijas);
+        }
+        else if (dir.equals("lasana")) {
+            //imagen.setImageResource(R.drawable.lasana);
+        }
+        else if (dir.equals("zarangollo")) {
+            //imagen.setImageResource(R.drawable.zarangollo);
+        }
+        else {
+            bitmap = BitmapFactory.decodeFile(dir);
+            imagen.setImageBitmap(bitmap);
+        }
     }
 
     private void openCamera() {

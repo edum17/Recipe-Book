@@ -1,0 +1,54 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:background="@drawable/fondo_pant_pral">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="335dp"
+        android:gravity="center_horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bNuevaR"
+            android:id="@+id/btNuevaR"
+            android:clickable="true"
+            android:background="@drawable/rounded_button"
+            android:singleLine="true"
+            android:textColor="@color/Blanco"
+            android:textStyle="normal"
+            android:textSize="17sp"
+            android:enabled="true"
+            android:onClick="clickNuevaR"
+            android:layout_marginBottom="138dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="0.24" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bListarR"
+            android:id="@+id/btListaR"
+            android:clickable="true"
+            android:background="@drawable/rounded_button"
+            android:singleLine="false"
+            android:textSize="17sp"
+            android:textColor="@color/Blanco"
+            android:enabled="true"
+            android:onClick="clickListarR"
+            android:layout_marginTop="142dp"
+            android:layout_gravity="right"
+            android:layout_weight="0.16" />
+
+    </LinearLayout>
+</LinearLayout>

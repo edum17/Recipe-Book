@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-
 public class ListarRecetas extends ActionBarActivity {
 
     SQLControlador dbconeccion;
@@ -61,7 +60,9 @@ public class ListarRecetas extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent consultar_receta = new Intent(getApplicationContext(), ConsultarReceta.class);
                 String identficador = Long.toString(adapter.getItemId(position));
+                String nombre = adapter.getItemName(position);
                 consultar_receta.putExtra("idR", identficador);
+                consultar_receta.putExtra("nombreR", nombre);
                 startActivity(consultar_receta);
             }
         });

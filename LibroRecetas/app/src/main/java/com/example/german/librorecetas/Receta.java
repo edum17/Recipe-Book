@@ -59,3 +59,4 @@ public class Receta {
 
     public void setTipo(String tipo) { this._tipo = tipo;}
 }
+
